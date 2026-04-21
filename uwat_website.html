@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UWAT – Umoja wa Wastaafu TANAPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a2a;
+    --forest-mid: #2d5a3d;
+    --forest-light: #3d7a52;
+    --gold: #c9a227;
+    --gold-light: #e8c050;
+    --cream: #f5f0e8;
+    --warm-white: #fdfaf4;
+    --text-dark: #1a1a1a;
+    --text-mid: #3a3a3a;
+    --text-light: #666;
+    --sand: #e8dfc8;
+    --rust: #8b4513;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:1000;
+    background: rgba(26,58,42,0.97);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--gold);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px; text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .nav-logo-text .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--cream); letter-spacing: 1px;
+  }
+  .nav-logo-text .tagline {
+    font-size: 10px; color: var(--gold-light);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a {
+    color: var(--cream); text-decoration: none;
+    padding: 8px 16px; border-radius: 4px;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: var(--gold); color: var(--forest);
+  }
+
+  .nav-cta {
+    background: var(--gold) !important; color: var(--forest) !important;
+    font-weight: 700 !important;
+    border: none; border-radius: 4px;
+  }
+
+  /* ─── PAGES ─── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(160deg, rgba(26,58,42,0.85) 0%, rgba(45,90,61,0.75) 50%, rgba(26,58,42,0.9) 100%),
+      url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1600&q=80') center/cover no-repeat;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 40px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content:'';
+    position: absolute; inset:0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(201,162,39,0.15) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,162,39,0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold-light); font-size: 11px;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 8px 24px; border-radius: 100px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s 0.2s both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 900; line-height: 1;
+    color: #fff; margin-bottom: 10px;
+    animation: fadeUp 0.8s 0.4s both;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-subtitle {
+    font-size: clamp(16px, 2.5vw, 24px);
+    color: var(--cream); margin-bottom: 20px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    animation: fadeUp 0.8s 0.5s both;
+  }
+  .hero-desc {
+    max-width: 680px; margin: 0 auto 40px;
+    font-size: 16px; color: rgba(245,240,232,0.85);
+    line-height: 1.8;
+    animation: fadeUp 0.8s 0.6s both;
+  }
+  .hero-btns {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.7s both;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--forest);
+    padding: 16px 36px; border-radius: 4px;
+    font-weight: 700; font-size: 14px;
+    letter-spacing: 1px; text-transform: uppercase;
+    border: none; cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--cream);
+    padding: 16px 36px; border-radius: 4px;
+    font-weight: 700; font-size: 14px;
+    letter-spacing: 1px; text-transform: uppercase;
+    border: 2px solid rgba(245,240,232,0.5); cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--cream); background: rgba(255,255,255,0.1); }
+
+  .hero-stats {
+    position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 60px;
+    animation: fadeUp 0.8s 0.9s both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 900;
+    color: var(--gold); line-height: 1;
+  }
+  .stat-label { font-size: 11px; color: rgba(245,240,232,0.7); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+  /* ─── SECTION COMMONS ─── */
+  section { padding: 90px 40px; }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-kicker {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); font-weight: 700; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px); font-weight: 900;
+    color: var(--forest); line-height: 1.1;
+  }
+  .section-line {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin: 20px auto 0; border-radius: 2px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* ─── ABOUT SECTION (HOME) ─── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center; max-width: 1100px; margin: 0 auto;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-wrap img {
+    width: 100%; border-radius: 8px;
+    aspect-ratio: 4/3; object-fit: cover;
+    box-shadow: 30px 30px 0 var(--sand);
+  }
+  .about-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--gold); color: var(--forest);
+    padding: 20px 24px; border-radius: 4px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 700; text-align: center;
+    box-shadow: 0 10px 30px rgba(201,162,39,0.4);
+  }
+  .about-badge span { display: block; font-size: 28px; font-weight: 900; }
+  .about-text .section-kicker { text-align: left; }
+  .about-text .section-title { text-align: left; }
+  .about-text .section-line { margin: 20px 0 30px; }
+  .about-text p { color: var(--text-mid); line-height: 1.9; margin-bottom: 16px; font-size: 15px; }
+  .about-pillars {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px;
+  }
+  .pillar {
+    background: var(--cream); border-radius: 6px;
+    padding: 18px; border-left: 3px solid var(--gold);
+  }
+  .pillar-icon { font-size: 22px; margin-bottom: 8px; }
+  .pillar-title { font-weight: 700; font-size: 13px; color: var(--forest); margin-bottom: 4px; }
+  .pillar-desc { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+
+  /* ─── PROGRAMS (HOME) ─── */
+  .programs-bg { background: var(--forest); }
+  .programs-bg .section-title { color: var(--cream); }
+  .programs-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .program-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,162,39,0.2);
+    border-radius: 8px; padding: 36px 28px;
+    transition: all 0.3s;
+  }
+  .program-card:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--gold);
+    transform: translateY(-6px);
+  }
+  .program-icon { font-size: 40px; margin-bottom: 20px; }
+  .program-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--cream); margin-bottom: 14px;
+  }
+  .program-desc { font-size: 14px; color: rgba(245,240,232,0.7); line-height: 1.8; }
+  .program-link {
+    display: inline-block; margin-top: 20px;
+    color: var(--gold); font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    cursor: pointer; transition: gap 0.2s;
+  }
+  .program-link:hover { color: var(--gold-light); }
+
+  /* ─── KALENDA (HOME) ─── */
+  .kalenda-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .event-item {
+    display: flex; gap: 20px; padding: 24px;
+    background: var(--cream); border-radius: 8px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  .event-item:hover { border-color: var(--gold); transform: translateX(4px); }
+  .event-date-box {
+    min-width: 64px; height: 64px;
+    background: var(--forest); border-radius: 6px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .event-date-box .day {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 900; color: var(--gold); line-height: 1;
+  }
+  .event-date-box .month { font-size: 11px; color: var(--cream); letter-spacing: 1px; }
+  .event-info { flex: 1; }
+  .event-type { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 4px; }
+  .event-title { font-weight: 700; color: var(--forest); font-size: 15px; margin-bottom: 6px; }
+  .event-meta { font-size: 13px; color: var(--text-light); }
+
+  /* ─── PAGE 1: HABARI ─── */
+  .page-hero {
+    padding-top: 140px; padding-bottom: 70px;
+    background: linear-gradient(135deg, var(--forest) 0%, var(--forest-mid) 100%);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(circle at 70% 50%, rgba(201,162,39,0.12), transparent 60%);
+  }
+  .page-hero-kicker { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-weight: 700; }
+  .page-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 5vw, 68px); font-weight: 900;
+    color: #fff; margin-bottom: 16px;
+  }
+  .page-hero-desc { color: rgba(245,240,232,0.8); font-size: 16px; max-width: 550px; margin: 0 auto; line-height: 1.7; }
+
+  /* News Grid */
+  .news-featured {
+    display: grid; grid-template-columns: 2fr 1fr; gap: 32px;
+    max-width: 1100px; margin: 0 auto 64px;
+  }
+  .news-card {
+    background: #fff; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .news-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+  .news-card img { width: 100%; height: 240px; object-fit: cover; }
+  .news-card-body { padding: 28px; }
+  .news-tag {
+    display: inline-block; background: var(--forest); color: var(--gold);
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px; font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .news-card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700; color: var(--forest);
+    margin-bottom: 12px; line-height: 1.3;
+  }
+  .news-card-body p { color: var(--text-light); font-size: 14px; line-height: 1.7; margin-bottom: 18px; }
+  .news-meta { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--text-light); }
+  .news-meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--text-light); }
+  .news-card.small img { height: 160px; }
+
+  .news-grid-3 {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    max-width: 1100px; margin: 0 auto 70px;
+  }
+
+  /* Blog */
+  .blog-section { background: var(--cream); }
+  .blog-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .blog-card {
+    background: #fff; border-radius: 8px; overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .blog-card:hover { transform: translateY(-4px); }
+  .blog-card-top {
+    height: 180px; display: flex; align-items: center; justify-content: center;
+    font-size: 56px; position: relative; overflow: hidden;
+  }
+  .blog-card-body { padding: 24px; }
+  .blog-cat { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 10px; }
+  .blog-card-body h4 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--forest); margin-bottom: 10px; line-height: 1.3; }
+  .blog-card-body p { font-size: 13px; color: var(--text-light); line-height: 1.7; }
+  .blog-date { font-size: 12px; color: var(--text-light); margin-top: 16px; }
+
+  /* Video */
+  .video-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .video-card {
+    border-radius: 8px; overflow: hidden; cursor: pointer;
+    position: relative; transition: transform 0.2s;
+  }
+  .video-card:hover { transform: scale(1.02); }
+  .video-thumb {
+    height: 200px; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--forest-mid);
+  }
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .play-btn {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: rgba(201,162,39,0.9);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index:2;
+    font-size: 22px; color: var(--forest);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .video-card:hover .play-btn { transform: scale(1.1); background: var(--gold); }
+  .video-info { padding: 16px; background: var(--forest); }
+  .video-title { color: var(--cream); font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .video-dur { font-size: 12px; color: rgba(245,240,232,0.6); }
+
+  /* ─── PAGE 2: MAKTABA ─── */
+  .maktaba-cats {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 50px; max-width: 1100px; margin-left: auto; margin-right: auto;
+  }
+  .cat-btn {
+    padding: 10px 24px; border-radius: 100px;
+    background: var(--cream); border: 1px solid var(--sand);
+    color: var(--text-mid); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .cat-btn:hover, .cat-btn.active { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+
+  .docs-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    max-width: 1100px; margin: 0 auto 60px;
+  }
+  .doc-card {
+    background: #fff; border-radius: 8px;
+    border: 1px solid var(--sand);
+    padding: 28px 24px;
+    display: flex; flex-direction: column;
+    transition: all 0.2s;
+  }
+  .doc-card:hover { border-color: var(--gold); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .doc-icon {
+    width: 52px; height: 52px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 18px;
+  }
+  .doc-icon.pdf { background: rgba(220,50,50,0.1); }
+  .doc-icon.word { background: rgba(30,100,220,0.1); }
+  .doc-icon.excel { background: rgba(30,140,60,0.1); }
+  .doc-type { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+  .doc-title { font-weight: 700; color: var(--forest); font-size: 15px; margin-bottom: 8px; line-height: 1.4; }
+  .doc-desc { font-size: 13px; color: var(--text-light); line-height: 1.6; flex: 1; }
+  .doc-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--sand); }
+  .doc-size { font-size: 12px; color: var(--text-light); }
+  .doc-download {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--forest); color: var(--cream);
+    padding: 8px 16px; border-radius: 4px;
+    font-size: 12px; font-weight: 600;
+    border: none; cursor: pointer; transition: background 0.2s;
+  }
+  .doc-download:hover { background: var(--forest-light); }
+
+  /* Ripoti highlight */
+  .ripoti-section { background: var(--forest); padding: 90px 40px; }
+  .ripoti-section .section-title { color: var(--cream); }
+  .ripoti-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .ripoti-card {
+    background: rgba(255,255,255,0.06); border-radius: 8px;
+    padding: 28px 20px; border: 1px solid rgba(201,162,39,0.2);
+    text-align: center; transition: all 0.2s;
+  }
+  .ripoti-card:hover { border-color: var(--gold); background: rgba(255,255,255,0.1); }
+  .ripoti-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 900; color: var(--gold); margin-bottom: 8px;
+  }
+  .ripoti-title { color: var(--cream); font-weight: 600; font-size: 14px; margin-bottom: 12px; }
+  .ripoti-type { font-size: 11px; color: rgba(245,240,232,0.5); margin-bottom: 20px; letter-spacing: 1px; }
+  .ripoti-dl {
+    background: var(--gold); color: var(--forest);
+    border: none; padding: 10px 20px; border-radius: 4px;
+    font-weight: 700; font-size: 12px; cursor: pointer;
+    width: 100%; transition: background 0.2s;
+  }
+  .ripoti-dl:hover { background: var(--gold-light); }
+
+  /* ─── PAGE 3: ELIMU ─── */
+  .elimu-hero-wrap {
+    background:
+      linear-gradient(135deg, rgba(26,58,42,0.92), rgba(45,90,61,0.88)),
+      url('https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=1400&q=80') center/cover;
+    text-align: center; padding: 140px 40px 80px;
+  }
+  .manifesto {
+    max-width: 800px; margin: 0 auto;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(201,162,39,0.3);
+    border-radius: 12px; padding: 50px;
+  }
+  .manifesto-icon { font-size: 52px; margin-bottom: 20px; }
+  .manifesto h2 {
+    font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900;
+    color: var(--cream); margin-bottom: 20px;
+  }
+  .manifesto p { color: rgba(245,240,232,0.85); line-height: 1.9; font-size: 16px; margin-bottom: 14px; }
+  .manifesto-quote {
+    margin-top: 32px; padding: 24px 32px;
+    border-left: 4px solid var(--gold);
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 20px; color: var(--gold-light);
+    background: rgba(201,162,39,0.08); border-radius: 0 8px 8px 0;
+  }
+
+  .makala-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .makala-card {
+    display: flex; gap: 24px;
+    background: #fff; border-radius: 8px; padding: 28px;
+    border: 1px solid var(--sand); transition: all 0.2s;
+    align-items: flex-start;
+  }
+  .makala-card:hover { border-color: var(--forest); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .makala-icon {
+    width: 56px; height: 56px; border-radius: 8px;
+    background: var(--forest); display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+  }
+  .makala-body .cat { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+  .makala-body h4 { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--forest); margin-bottom: 10px; }
+  .makala-body p { font-size: 13px; color: var(--text-light); line-height: 1.7; }
+  .read-more { display: inline-block; margin-top: 14px; color: var(--forest-light); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+
+  /* Expert */
+  .experts-section { background: var(--cream); }
+  .experts-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .expert-card {
+    background: #fff; border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--sand); transition: all 0.2s;
+  }
+  .expert-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+  .expert-top {
+    height: 200px; background: var(--forest);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 70px; position: relative;
+  }
+  .expert-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--gold); color: var(--forest);
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 4px 10px; border-radius: 100px; text-transform: uppercase;
+  }
+  .expert-body { padding: 24px; }
+  .expert-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--forest); margin-bottom: 4px; }
+  .expert-role { font-size: 12px; color: var(--gold); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+  .expert-bio { font-size: 13px; color: var(--text-light); line-height: 1.7; margin-bottom: 16px; }
+  .expert-quote {
+    padding: 16px; background: var(--cream); border-radius: 6px;
+    font-style: italic; font-size: 13px; color: var(--text-mid);
+    border-left: 3px solid var(--gold);
+  }
+
+  /* Uhifadhi facts */
+  .uhifadhi-facts { background: var(--forest-mid); padding: 70px 40px; }
+  .facts-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .fact-item { text-align: center; }
+  .fact-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px; font-weight: 900; color: var(--gold); line-height: 1;
+  }
+  .fact-label { font-size: 13px; color: rgba(245,240,232,0.7); margin-top: 8px; line-height: 1.5; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--text-dark);
+    padding: 70px 40px 30px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px;
+    max-width: 1100px; margin: 0 auto 50px;
+  }
+  .footer-brand .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 900; color: var(--cream);
+    margin-bottom: 16px;
+  }
+  .footer-brand .logo-text span { color: var(--gold); }
+  .footer-brand p { font-size: 13px; color: rgba(245,240,232,0.6); line-height: 1.8; margin-bottom: 24px; }
+  .footer-social { display: flex; gap: 12px; }
+  .social-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; transition: background 0.2s; cursor: pointer;
+  }
+  .social-btn:hover { background: var(--gold); }
+  .footer-col h5 {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); font-weight: 700; margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li {
+    margin-bottom: 12px;
+  }
+  .footer-col ul li a {
+    color: rgba(245,240,232,0.6); text-decoration: none;
+    font-size: 13px; transition: color 0.2s; cursor: pointer;
+  }
+  .footer-col ul li a:hover { color: var(--cream); }
+  .footer-bottom {
+    max-width: 1100px; margin: 0 auto;
+    padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; color: rgba(245,240,232,0.4);
+  }
+
+  /* ─── KALENDA PAGE ─── */
+  .kalenda-full { padding: 90px 40px; }
+  .kalenda-timeline {
+    max-width: 900px; margin: 0 auto;
+  }
+  .kalenda-month { margin-bottom: 48px; }
+  .kalenda-month-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700; color: var(--forest);
+    padding-bottom: 12px; border-bottom: 2px solid var(--sand);
+    margin-bottom: 24px;
+  }
+  .kalenda-event-row {
+    display: flex; gap: 24px; padding: 20px;
+    background: var(--cream); border-radius: 8px;
+    margin-bottom: 12px; border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .kalenda-event-row:hover { border-color: var(--gold); background: #fff; }
+  .kalenda-event-row .date-pill {
+    min-width: 50px; background: var(--forest); color: var(--gold);
+    border-radius: 6px; text-align: center; padding: 8px;
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    font-size: 18px; line-height: 1; display: flex; flex-direction: column; justify-content: center;
+  }
+  .kalenda-event-row .date-pill small { font-size: 10px; color: var(--cream); letter-spacing: 1px; font-family: 'Nunito Sans', sans-serif; font-weight: 400; }
+  .kal-event-info h4 { font-weight: 700; color: var(--forest); margin-bottom: 6px; }
+  .kal-event-info p { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+  .kal-event-type {
+    display: inline-block; margin-top: 8px;
+    font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 100px; font-weight: 700;
+  }
+  .kal-type-mkutano { background: rgba(26,58,42,0.12); color: var(--forest); }
+  .kal-type-kitaifa { background: rgba(201,162,39,0.2); color: var(--rust); }
+  .kal-type-utalii { background: rgba(30,120,200,0.1); color: #1a5a9a; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .about-grid, .news-featured, .kalenda-grid { grid-template-columns: 1fr; }
+    .programs-grid, .news-grid-3, .blog-grid, .docs-grid, .makala-grid, .experts-grid { grid-template-columns: 1fr 1fr; }
+    .ripoti-grid, .facts-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 32px; bottom: 30px; }
+    nav { padding: 0 20px; }
+    .nav-links a { padding: 6px 10px; font-size: 11px; }
+  }
+  @media (max-width: 600px) {
+    .programs-grid, .news-grid-3, .blog-grid, .docs-grid, .makala-grid, .experts-grid, .video-grid { grid-template-columns: 1fr; }
+    .ripoti-grid, .facts-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { flex-wrap: wrap; gap: 24px; position: static; margin-top: 40px; }
+    section { padding: 60px 20px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 2px; }
+    .nav-links a { font-size: 10px; padding: 5px 7px; }
+  }
+
+  /* Active tab indicator */
+  .tab-indicator { display: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon">🐘</div>
+    <div class="nav-logo-text">
+      <div class="name">UWAT</div>
+      <div class="tagline">Umoja wa Wastaafu TANAPA</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a onclick="showPage('home')" id="nav-home" class="active">Nyumbani</a>
+    <a onclick="showPage('habari')" id="nav-habari">Habari & Matukio</a>
+    <a onclick="showPage('maktaba')" id="nav-maktaba">Maktaba</a>
+    <a onclick="showPage('elimu')" id="nav-elimu">Elimu & Uhifadhi</a>
+    <a onclick="showPage('kalenda')" id="nav-kalenda">Kalenda</a>
+    <a class="nav-cta" onclick="showPage('maktaba')">Jiunge Nasi</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div style="position:relative; z-index:1;">
+      <div class="hero-badge">Ustaafu na Uhifadhi Endelevu</div>
+      <h1>Umoja wa<br><span>Wastaafu</span><br>TANAPA</h1>
+      <div class="hero-subtitle">Tunaendelea Kulinda Urithi wa Taifa</div>
+      <p class="hero-desc">
+        UWAT ni mkusanyiko wa hiari wa waliostaafu kutoka Tanzania National Parks (TANAPA), 
+        wakijua mchango wao unaendelea kupitia uhifadhi wa wanyamapori, mshikamano wa kijamii, 
+        na ustawi wa kiuchumi.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('maktaba')">Jiunge Nasi Leo</button>
+        <button class="btn-outline" onclick="showPage('habari')">Shughuli Zetu</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Wanachama</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">22</div>
+        <div class="stat-label">Hifadhi</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Miaka ya Huduma</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Hiari</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section style="background:var(--warm-white); padding:90px 40px;">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <img src="https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80" alt="Wanyamapori">
+        <div class="about-badge">
+          <span>2009</span>
+          Mwaka wa<br>Kuanzishwa
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-kicker">Kuhusu Sisi</div>
+        <h2 class="section-title">Sisi ni Nani?</h2>
+        <div class="section-line" style="margin:20px 0 30px;"></div>
+        <p>Umoja wa Wastaafu TANAPA (UWAT) ni shirika la hiari lililoanzishwa na waliostaafu kutoka Tanzania National Parks. Tunajumuisha wastaafu kutoka ngazi mbalimbali — walinzi wa hifadhi, wasimamizi, watafiti, na wataalamu wa jinsia nyingi za utaalamu.</p>
+        <p>Lengo letu kuu ni kuwaunganisha wastaafu hawa ili waendelee kuchangia jamii na sekta ya uhifadhi kupitia uzoefu wao mkubwa, huku wakishirikiana katika masuala ya ustawi wa kijamii na kiuchumi.</p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <div class="pillar-icon">🌿</div>
+            <div class="pillar-title">Uhifadhi Endelevu</div>
+            <div class="pillar-desc">Kuendelea kulinda mazingira na wanyamapori wa Tanzania</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🤝</div>
+            <div class="pillar-title">Mshikamano</div>
+            <div class="pillar-desc">Kujenga udugu na msaada kati ya wastaafu wote</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">💼</div>
+            <div class="pillar-title">Ujasiriamali</div>
+            <div class="pillar-desc">Kuchochea shughuli za kiuchumi kwa wanachama</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🎓</div>
+            <div class="pillar-title">Elimu</div>
+            <div class="pillar-desc">Kushiriki elimu ya uhifadhi kwa vizazi vijavyo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs -->
+  <section class="programs-bg">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div class="section-header">
+        <div class="section-kicker">Tunachofanya</div>
+        <h2 class="section-title" style="color:var(--cream);">Maeneo ya Kazi Yetu</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="programs-grid">
+        <div class="program-card">
+          <div class="program-icon">🦁</div>
+          <div class="program-title">Uhifadhi wa Wanyamapori</div>
+          <p class="program-desc">Wastaafu wetu wanaendelea kuwa mabalozi wa uhifadhi, wakishiriki katika programu za elimu na ufuatiliaji wa wanyamapori katika hifadhi za Tanzania.</p>
+          <span class="program-link" onclick="showPage('elimu')">Jifunza Zaidi →</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">🏥</div>
+          <div class="program-title">Huduma za Afya</div>
+          <p class="program-desc">Tunasimamia mipango ya bima ya afya na kutoa ushauri wa ustawi kwa wanachama na familia zao, kuhakikisha maisha mazuri baada ya kustaafu.</p>
+          <span class="program-link" onclick="showPage('maktaba')">Jifunza Zaidi →</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">💰</div>
+          <div class="program-title">Ustawi wa Kiuchumi</div>
+          <p class="program-desc">Tunatoa mafunzo ya ujasiriamali, ushauri wa uwekezaji, na fursa za kibiashara kwa wanachama ili kuimarisha maisha yao ya kifedha.</p>
+          <span class="program-link" onclick="showPage('habari')">Jifunza Zaidi →</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">🌍</div>
+          <div class="program-title">Utalii Endelevu</div>
+          <p class="program-desc">Kupitia uzoefu wa miaka mingi katika TANAPA, wanachama wetu wanasaidia kukuza utalii wa kielimu na wa kimaumbile nchini Tanzania.</p>
+          <span class="program-link" onclick="showPage('elimu')">Jifunza Zaidi →</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">📚</div>
+          <div class="program-title">Mafunzo na Elimu</div>
+          <p class="program-desc">Tunaandaa warsha, semina na mafunzo yanayohusu masuala ya ustawi wa wastaafu, mbinu za ujasiriamali na usimamizi wa mazingira.</p>
+          <span class="program-link" onclick="showPage('elimu')">Jifunza Zaidi →</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">🤲</div>
+          <div class="program-title">Huduma za Jamii</div>
+          <p class="program-desc">Kushirikiana na jamii zinazozunguka hifadhi za TANAPA katika miradi ya maendeleo endelevu na uhifadhi wa mazingira.</p>
+          <span class="program-link" onclick="showPage('habari')">Jifunza Zaidi →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Matukio soon -->
+  <section style="background:var(--warm-white); padding:90px 40px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Kalenda</div>
+        <h2 class="section-title">Matukio Yanayokuja</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="kalenda-grid">
+        <div class="event-item">
+          <div class="event-date-box"><span class="day">15</span><span class="month">Mei</span></div>
+          <div class="event-info">
+            <div class="event-type">Mkutano Mkuu</div>
+            <div class="event-title">Mkutano Mkuu wa Mwaka 2025</div>
+            <div class="event-meta">📍 Arusha, Nyumba ya Mkutano | 09:00 – 16:00</div>
+          </div>
+        </div>
+        <div class="event-item">
+          <div class="event-date-box"><span class="day">01</span><span class="month">Okt</span></div>
+          <div class="event-info">
+            <div class="event-type">Siku ya Kimataifa</div>
+            <div class="event-title">Siku ya Wastaafu Duniani</div>
+            <div class="event-meta">📍 Dar es Salaam & Matawi Yote</div>
+          </div>
+        </div>
+        <div class="event-item">
+          <div class="event-date-box"><span class="day">27</span><span class="month">Sep</span></div>
+          <div class="event-info">
+            <div class="event-type">Utalii</div>
+            <div class="event-title">Wiki ya Utalii Duniani – UWAT Inashiriki</div>
+            <div class="event-meta">📍 Serengeti & Ngorongoro</div>
+          </div>
+        </div>
+        <div class="event-item">
+          <div class="event-date-box"><span class="day">22</span><span class="month">Apr</span></div>
+          <div class="event-info">
+            <div class="event-type">Siku ya Dunia</div>
+            <div class="event-title">Siku ya Dunia – Kampeni ya Uhifadhi</div>
+            <div class="event-meta">📍 Hifadhi Zote Tanzania</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <button class="btn-primary" onclick="showPage('kalenda')">Tazama Kalenda Kamili</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section style="background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); padding:70px 40px; text-align:center;">
+    <div class="section-kicker" style="color:var(--forest);">Jiunge Nasi</div>
+    <h2 style="font-family:'Playfair Display',serif; font-size:clamp(30px,4vw,50px); color:var(--forest); margin-bottom:16px; font-weight:900;">Una Uzoefu. Una Nguvu. Una Nafasi.</h2>
+    <p style="font-size:16px; color:var(--forest-mid); max-width:600px; margin:0 auto 36px; line-height:1.8;">Jiunge na UWAT leo na kuendelea kuwa sehemu ya harakati ya kulinda urithi wetu wa asili na kujenga maisha mazuri ya wastaafu.</p>
+    <button class="btn-primary" style="background:var(--forest); color:var(--cream);" onclick="showPage('maktaba')">Pakua Fomu ya Kujiunga</button>
+  </section>
+
+</div><!-- /home -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 1: HABARI & MATUKIO
+══════════════════════════════════════════ -->
+<div id="page-habari" class="page">
+
+  <div class="page-hero">
+    <div style="position:relative; z-index:1;">
+      <div class="page-hero-kicker">Habari & Matukio</div>
+      <h1 class="page-hero-title">Habari Mpya na<br>Shughuli Zetu</h1>
+      <p class="page-hero-desc">Fuatilia habari za hivi karibuni, matukio ya UWAT, makala za elimu na video za ujumbe kutoka kwa viongozi wetu.</p>
+    </div>
+  </div>
+
+  <!-- Featured News -->
+  <section style="padding:80px 40px; background:var(--warm-white);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Habari Maalum</div>
+        <h2 class="section-title">Matukio Makuu</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="news-featured">
+        <div class="news-card">
+          <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&q=80" alt="Mkutano">
+          <div class="news-card-body">
+            <span class="news-tag">Mkutano Mkuu</span>
+            <h3>Mkutano Mkuu wa UWAT 2024 Ulifanikiwa — Mwelekeo Mpya Unaanza</h3>
+            <p>Mkutano Mkuu wa mwaka ulifanyika Arusha ukijumuisha zaidi ya wanachama 300 kutoka mikoa yote ya Tanzania. Maamuzi muhimu yalifanywa kuhusu programu mpya za afya na uchumi.</p>
+            <div class="news-meta">
+              <span>📅 15 Novemba 2024</span>
+              <span class="news-meta-dot"></span>
+              <span>✍️ Sekretarieti ya UWAT</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <div class="news-card small">
+            <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600&q=80" alt="Serengeti">
+            <div class="news-card-body">
+              <span class="news-tag">Ziara</span>
+              <h3>Ziara ya Kitalii — Serengeti 2024</h3>
+              <p>Wanachama 45 walitembelea Hifadhi ya Serengeti wakiwa mabalozi wa uhifadhi.</p>
+              <div class="news-meta"><span>📅 8 Oktoba 2024</span></div>
+            </div>
+          </div>
+          <div class="news-card small">
+            <img src="https://images.unsplash.com/photo-1549366021-9f761d450615?w=600&q=80" alt="Wanyamapori">
+            <div class="news-card-body">
+              <span class="news-tag">Uhifadhi</span>
+              <h3>UWAT Inasherehekea Siku ya Tembo Duniani</h3>
+              <p>Kampeni maalum ya elimu ya uhifadhi ilienezwa katika shule 12 za Arusha.</p>
+              <div class="news-meta"><span>📅 12 Agosti 2024</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- More News -->
+  <section style="padding:0 40px 80px; background:var(--warm-white);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Habari Zaidi</div>
+        <h2 class="section-title">Taarifa za Hivi Karibuni</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="news-grid-3">
+        <div class="news-card">
+          <img src="https://images.unsplash.com/photo-1535083252457-6080b98b9d87?w=600&q=80" alt="">
+          <div class="news-card-body">
+            <span class="news-tag">Afya</span>
+            <h3>Programu Mpya ya Bima ya Afya kwa Wastaafu</h3>
+            <p>UWAT imefanikisha mkataba mpya wa bima ya afya kwa wanachama wote na familia zao kwa gharama nafuu.</p>
+            <div class="news-meta"><span>📅 3 Desemba 2024</span></div>
+          </div>
+        </div>
+        <div class="news-card">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="">
+          <div class="news-card-body">
+            <span class="news-tag">Ujasiriamali</span>
+            <h3>Warsha ya Ujasiriamali — Mwongozo wa Wastaafu</h3>
+            <p>Wanachama 60 walipokea mafunzo ya ujasiriamali na ushauri wa uwekezaji kutoka kwa wataalamu.</p>
+            <div class="news-meta"><span>📅 20 Novemba 2024</span></div>
+          </div>
+        </div>
+        <div class="news-card">
+          <img src="https://images.unsplash.com/photo-1472552944129-b035e9ea3744?w=600&q=80" alt="">
+          <div class="news-card-body">
+            <span class="news-tag">Siku ya Dunia</span>
+            <h3>UWAT Inaadhimisha Siku ya Dunia — Upandaji Miti</h3>
+            <p>Wanachama wetu walipanda miti 500 pembezoni mwa Hifadhi ya Tarangire kama ishara ya uendelezaji.</p>
+            <div class="news-meta"><span>📅 22 Aprili 2024</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="blog-section" style="padding:80px 40px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Blog & Makala</div>
+        <h2 class="section-title">Maarifa na Ushauri</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card">
+          <div class="blog-card-top" style="background:linear-gradient(135deg,#1a3a2a,#2d5a3d);">🏃</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Afya ya Wastaafu</div>
+            <h4>Jinsi ya Kudumisha Afya Bora Baada ya Kustaafu</h4>
+            <p>Mazoezi rahisi, lishe bora, na mtazamo chanya wa maisha — vidokezo vitakavyobadilisha ustawi wako wa kila siku.</p>
+            <div class="blog-date">📅 10 Desemba 2024 · 5 dakika kusoma</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-top" style="background:linear-gradient(135deg,#c9a227,#e8c050);">💡</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Ujasiriamali</div>
+            <h4>Biashara 5 Bora kwa Wastaafu wa TANAPA</h4>
+            <p>Kutumia uzoefu wa hifadhi kuanzisha shughuli za mapato — utalii wa ekolojia, ufundi, ushauri wa mazingira na zaidi.</p>
+            <div class="blog-date">📅 5 Desemba 2024 · 7 dakika kusoma</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-top" style="background:linear-gradient(135deg,#2d5a3d,#3d7a52);">📈</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Uwekezaji</div>
+            <h4>Ushauri wa Uwekezaji: Faida na Hatari kwa Wastaafu</h4>
+            <p>Jinsi ya kulinda akiba yako na kuifanya ikue — masharti ya uwekezaji salama yanayofaa hali ya wastaafu.</p>
+            <div class="blog-date">📅 28 Novemba 2024 · 8 dakika kusoma</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-top" style="background:linear-gradient(135deg,#8b4513,#c9a227);">🌿</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Uhifadhi</div>
+            <h4>Wastaafu kama Mabalozi wa Mazingira — Mchango Wetu Unaendelea</h4>
+            <p>Jinsi miaka ya uzoefu katika hifadhi inaweza kuendelea kulipa mgawanyo wa maarifa kwa jamii.</p>
+            <div class="blog-date">📅 18 Novemba 2024 · 6 dakika kusoma</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-top" style="background:linear-gradient(135deg,#1a3a2a,#8b4513);">👨‍👩‍👧</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Familia</div>
+            <h4>Kulinda Familia — Mipango ya Kisheria baada ya Kustaafu</h4>
+            <p>Wosia, urithi, na haki za kisheria — mambo muhimu ambayo kila wastaafu anapaswa kujua na kutayarisha.</p>
+            <div class="blog-date">📅 10 Novemba 2024 · 5 dakika kusoma</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-top" style="background:linear-gradient(135deg,#2d5a3d,#1a3a2a);">🎯</div>
+          <div class="blog-card-body">
+            <div class="blog-cat">Lengo la UWAT</div>
+            <h4>Dira ya UWAT 2025–2030: Tunaelekea Wapi?</h4>
+            <p>Mwelekeo mpya wa umoja — kupanua uanachama, kuimarisha huduma na kujenga uwezo wa kiuchumi.</p>
+            <div class="blog-date">📅 1 Novemba 2024 · 4 dakika kusoma</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Section -->
+  <section style="padding:80px 40px; background:var(--warm-white);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Video</div>
+        <h2 class="section-title">Video Fupifupi & Mahojiano</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=600&q=80" alt="">
+            <div class="play-btn">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Ujumbe wa Mwenyekiti wa UWAT — Mkutano Mkuu 2024</div>
+            <div class="video-dur">⏱ 8:32 | Novemba 2024</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600&q=80" alt="">
+            <div class="play-btn">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Mahojiano: Uzoefu wa Miaka 30 katika Serengeti</div>
+            <div class="video-dur">⏱ 12:15 | Oktoba 2024</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1549366021-9f761d450615?w=600&q=80" alt="">
+            <div class="play-btn">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Ziara ya Ngorongoro — Taarifa ya Wanachama</div>
+            <div class="video-dur">⏱ 5:48 | Agosti 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /habari -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 2: MAKTABA YA NYARAKA
+══════════════════════════════════════════ -->
+<div id="page-maktaba" class="page">
+
+  <div class="page-hero">
+    <div style="position:relative; z-index:1;">
+      <div class="page-hero-kicker">Maktaba ya Nyaraka</div>
+      <h1 class="page-hero-title">Nyaraka &<br>Rasilimali</h1>
+      <p class="page-hero-desc">Pata nakala za katiba, fomu za kujiunga, miongozo ya afya, na ripoti za mwaka — nyaraka zote muhimu za UWAT.</p>
+    </div>
+  </div>
+
+  <section style="padding:80px 40px; background:var(--warm-white);">
+    <div class="container">
+      <!-- Category Filter -->
+      <div class="maktaba-cats">
+        <button class="cat-btn active" onclick="filterDocs('all',this)">Zote</button>
+        <button class="cat-btn" onclick="filterDocs('kisheria',this)">Nyaraka za Kisheria</button>
+        <button class="cat-btn" onclick="filterDocs('fomu',this)">Fomu za Kujiunga</button>
+        <button class="cat-btn" onclick="filterDocs('afya',this)">Afya & Bima</button>
+        <button class="cat-btn" onclick="filterDocs('ripoti',this)">Ripoti za Mwaka</button>
+      </div>
+
+      <!-- Docs Grid -->
+      <div class="docs-grid" id="docs-grid">
+
+        <!-- Kisheria -->
+        <div class="doc-card" data-cat="kisheria">
+          <div class="doc-icon pdf">📄</div>
+          <div class="doc-type">Kisheria · PDF</div>
+          <div class="doc-title">Katiba ya UWAT — Toleo la 2023</div>
+          <div class="doc-desc">Nakala kamili ya Katiba ya Umoja wa Wastaafu TANAPA, ikijumuisha sheria na kanuni zote zinazosimamia umoja.</div>
+          <div class="doc-footer">
+            <span class="doc-size">2.4 MB</span>
+            <button class="doc-download">⬇ Pakua</button>
+          </div>
+        </div>
+
+        <div class="doc-card" data-cat="kisheria">
+          <div class="doc-icon pdf">📋</div>
+          <div class="doc-type">Kisheria · PDF</div>
+          <div class="doc-title">Kanuni za Uendeshaji wa Umoja</div>
+          <div class="doc-desc">Mwongozo wa kanuni na taratibu zinazosimamia mikutano, uchaguzi, na uendeshaji wa shughuli za UWAT.</div>
+          <div class="doc-footer">
+            <span class="doc-size">1.8 MB</span>
+            <button class="doc-download">⬇ Pakua</button>
+          </div>
+        </div>
+
+        <div class="doc-card" data-cat="kisheria">
+          <div class="doc-icon pdf">⚖️</div>
+          <div class="doc-type">Kisheria · PDF</div>
+          <div class="doc-title">Haki na Wajibu wa Wanachama</div>
+          <div class="doc-desc">Hati inayoelezea kwa undani haki zote za wanachama, wajibu, na utaratibu wa kutatua migogoro.</div>
+          <div class="doc-footer">
+            <span class="doc-size">0.9 MB</span>
+            <button class="doc-download">⬇ Pakua</button>
+          </div>
+        </div>
+
+        <!-- Fomu -->
+        <div class="doc-card" data-cat="fomu">
+          <div class="doc-icon word">📝</div>
+          <div class="doc-type">Fomu · Word/PDF</div>
+          <div class="doc-title">Fomu ya Kujiunga na UWAT</div>
+          <div class="doc-desc">Jaza fomu hii ili kuomba uanachama wa UWAT. Ijaze kwa makini na itume kwa Sekretarieti au tawi lako la karibu.</div>
+          <div class="doc-footer">
+            <span class="doc-size">0.5 MB</span>
+            <button class="doc-download">⬇ Pakua</button>
+          </div>
+        </div>
+
+        <div class="doc-card" data-cat="fomu">
+          <div class="doc-icon word">✏️</div>
+          <div class="doc-type">Fomu · Word</div>
+          <div class="doc-title">Fomu ya Kuboresha Taarifa za Mwanachama</div>
+          <div class="doc-desc">Tumia fomu hii kusasisha anwani yako, namba ya simu, au taarifa nyingine za kibinafsi zilizo kwenye kumbukumbu za UWAT.</div>
+          <div class="doc-footer">
+            <span class="doc-size">0.3 MB</span>
+            <button class="doc-download">⬇ Pakua</button>
+          </div>
+        </div>
+
+        <div class="doc-card" data-cat="fomu afya">
+          <div class="doc-icon pdf">🏥</div>
+          <div class="doc-type">Fomu · PDF</div>
+          <div class="doc-title">Fomu ya Ombi la Bima ya Afya</div>
+          <div class="doc-desc">Fomu ya kujisajili kwenye mpango wa bima ya afya wa UWAT kwa mwanachama na wanafamilia wake wanaotegemea.</div>
+          <div class="doc-footer">
+            <span class="doc-size">0.7 MB</span>
+            <button class="doc-download">⬇ Pakua</button>
+          </div>
+        </div>
+
+        <!-- Afya -->
+        <div class="doc-card" data-cat="afya">
+          <div class="doc-icon pdf">💊</div>
+          <div class="doc-type">Afya · PDF</div>
+          <div class="doc-title">Mwongozo wa Afya kwa Wastaafu 2024</div>
+          <div class="doc-desc">Taarifa kamili kuhusu huduma za afya zinazopatikana, hospitali zinazokubaliwa, na jinsi ya kutumia bima yako kwa ufanisi.</div>
+          <div class="doc-footer">
+            <span class="doc-size">3.1 MB</span>
+            <button class="doc-download">⬇ Pakua</button>
+          </div>
+        </div>
+
+        <div class="doc-card" data-cat="afya">
+          <div class="doc-icon pdf">🩺</div>
+          <div class="doc-type">Afya · PDF</div>
+          <div class="doc-title">Orodha ya Hospitali Zinazokubali Bima ya UWAT</div>
+          <div class="doc-desc">Hospitali na kliniki zilizoungana na mpango wa bima ya afya wa UWAT katika mikoa yote ya Tanzania.</div>
+          <div class="doc-footer">
+            <span class="doc-size">1.2 MB</span>
+            <button class="doc-download">⬇ Pakua</button>
+          </div>
+        </div>
+
+        <!-- Ripoti -->
+        <div class="doc-card" data-cat="ripoti">
+          <div class="doc-icon excel">📊</div>
+          <div class="doc-type">Ripoti · PDF</div>
+          <div class="doc-title">Taarifa ya Fedha Iliyokaguliwa 2023/24</div>
+          <div class="doc-desc">Taarifa kamili ya fedha za UWAT kwa mwaka 2023/24 iliyokaguliwa na mkaguzi wa nje. Imewasilishwa kwa Mkutano Mkuu.</div>
+          <div class="doc-footer">
+            <span class="doc-size">4.2 MB</span>
+            <button class="doc-download">⬇ Pakua</button>
+          </div>
+        </div>
+
+      </div><!-- /docs-grid -->
+    </div>
+  </section>
+
+  <!-- Annual Reports -->
+  <div class="ripoti-section">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div class="section-header">
+        <div class="section-kicker" style="color:var(--gold);">Rekodi ya Mwaka</div>
+        <h2 class="section-title">Ripoti za Mwaka</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="ripoti-grid">
+        <div class="ripoti-card">
+          <div class="ripoti-year">2024</div>
+          <div class="ripoti-title">Taarifa ya Mwaka</div>
+          <div class="ripoti-type">Ripoti ya Kila Mwaka</div>
+          <button class="ripoti-dl">⬇ Pakua PDF</button>
+        </div>
+        <div class="ripoti-card">
+          <div class="ripoti-year">2023</div>
+          <div class="ripoti-title">Taarifa ya Mwaka</div>
+          <div class="ripoti-type">Ripoti ya Kila Mwaka</div>
+          <button class="ripoti-dl">⬇ Pakua PDF</button>
+        </div>
+        <div class="ripoti-card">
+          <div class="ripoti-year">2022</div>
+          <div class="ripoti-title">Taarifa ya Mwaka</div>
+          <div class="ripoti-type">Ripoti ya Kila Mwaka</div>
+          <button class="ripoti-dl">⬇ Pakua PDF</button>
+        </div>
+        <div class="ripoti-card">
+          <div class="ripoti-year">2021</div>
+          <div class="ripoti-title">Taarifa ya Mwaka</div>
+          <div class="ripoti-type">Ripoti ya Kila Mwaka</div>
+          <button class="ripoti-dl">⬇ Pakua PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /maktaba -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 3: ELIMU & UHIFADHI
+══════════════════════════════════════════ -->
+<div id="page-elimu" class="page">
+
+  <div class="elimu-hero-wrap">
+    <div class="manifesto">
+      <div class="manifesto-icon">🌿</div>
+      <h2>Ustaafu na Uhifadhi Endelevu</h2>
+      <p>Kustaafu si mwisho wa mchango wetu — ni mwanzo wa aina nyingine ya uongozi. Sisi wastaafu wa TANAPA tulikuwa walinzi wa baadhi ya mifumo ya ikolojia iliyo muhimu zaidi duniani.</p>
+      <p>Uzoefu wetu wa miaka mingi katika hifadhi hauishii pale ambapo kadi yetu ya utambulisho inabatilishwa — unaendelea kuwa hazina ambayo tunaweza kushiriki na jamii, vizazi vijavyo, na sekta ya uhifadhi.</p>
+      <div class="manifesto-quote">
+        "Hatuwezi kulinda kile ambacho hatukijui — na sisi tunakijua vizuri zaidi ya mtu yeyote."
+      </div>
+    </div>
+  </div>
+
+  <!-- Facts -->
+  <div class="uhifadhi-facts">
+    <div class="facts-grid">
+      <div class="fact-item">
+        <div class="fact-num">22</div>
+        <div class="fact-label">Hifadhi za Taifa Tanzania</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-num">57,000+</div>
+        <div class="fact-label">km² ya ardhi ilindwayo</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-num">1,000+</div>
+        <div class="fact-label">Aina za Ndege Tanzania</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-num">2M+</div>
+        <div class="fact-label">Nyumbu — Uhamiaji Mkubwa Duniani</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Makala za Uhifadhi -->
+  <section style="padding:80px 40px; background:var(--warm-white);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Maudhui ya Uhifadhi</div>
+        <h2 class="section-title">Makala za Kielimu</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="makala-grid">
+        <div class="makala-card">
+          <div class="makala-icon">🐘</div>
+          <div class="makala-body">
+            <div class="cat">Wanyamapori</div>
+            <h4>Tembo wa Afrika — Hatua za Uhifadhi Zinazofanya Kazi</h4>
+            <p>Mwongozo wa kina kuhusu mbinu za kisasa za kulinda tembo, kuzuia ujangili, na uhusiano kati ya tembo na jamii zinazozunguka hifadhi.</p>
+            <span class="read-more">Soma Makala →</span>
+          </div>
+        </div>
+        <div class="makala-card">
+          <div class="makala-icon">🌍</div>
+          <div class="makala-body">
+            <div class="cat">Mabadiliko ya Tabianchi</div>
+            <h4>Athari za Mabadiliko ya Hali ya Hewa kwa Hifadhi za Tanzania</h4>
+            <p>Utafiti na uchunguzi unaoonyesha jinsi mabadiliko ya hali ya hewa yanavyoathiri mifumo ya ikolojia na wanyamapori wa Tanzania.</p>
+            <span class="read-more">Soma Makala →</span>
+          </div>
+        </div>
+        <div class="makala-card">
+          <div class="makala-icon">🌿</div>
+          <div class="makala-body">
+            <div class="cat">Bionuai</div>
+            <h4>Bionuai ya Tanzania — Rasilimali ya Dunia Nzima</h4>
+            <p>Tanzania ni moja ya nchi zenye bionuai nyingi zaidi duniani. Makala hii inaelezea umuhimu huu na jukumu letu katika kulinda urithi huu.</p>
+            <span class="read-more">Soma Makala →</span>
+          </div>
+        </div>
+        <div class="makala-card">
+          <div class="makala-icon">👥</div>
+          <div class="makala-body">
+            <div class="cat">Jamii na Uhifadhi</div>
+            <h4>Njia za Kuunganisha Jamii za Karibu na Uhifadhi</h4>
+            <p>Jinsi wastaafu wa TANAPA wanavyoweza kutumika kama daraja kati ya hifadhi na jamii zinazozunguka, kujenga uelewa na ushirikiano.</p>
+            <span class="read-more">Soma Makala →</span>
+          </div>
+        </div>
+        <div class="makala-card">
+          <div class="makala-icon">🦅</div>
+          <div class="makala-body">
+            <div class="cat">Ndege</div>
+            <h4>Tanzania — Bustani ya Ndege: Fursa ya Utalii wa Birdwatching</h4>
+            <p>Tanzania ina aina zaidi ya 1,000 za ndege. Wastaafu wanaweza kuchukua fursa hii kuanzisha shughuli za utalii maalum wa ndege.</p>
+            <span class="read-more">Soma Makala →</span>
+          </div>
+        </div>
+        <div class="makala-card">
+          <div class="makala-icon">💧</div>
+          <div class="makala-body">
+            <div class="cat">Maji na Mazingira</div>
+            <h4>Kulinda Vyanzo vya Maji — Jukumu la Hifadhi na Wastaafu</h4>
+            <p>Uhusiano kati ya hifadhi za misitu, mito, na maji yanayotiririka kwenye miji na vijiji — na jinsi wastaafu wanavyoweza kusaidia.</p>
+            <span class="read-more">Soma Makala →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experts Section -->
+  <section class="experts-section" style="padding:80px 40px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Wataalamu Wetu</div>
+        <h2 class="section-title">Maoni ya Wataalamu</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="experts-grid">
+        <div class="expert-card">
+          <div class="expert-top">🦁<div class="expert-badge">Mwenyekiti</div></div>
+          <div class="expert-body">
+            <div class="expert-name">Mzee J. Kasanga</div>
+            <div class="expert-role">Uhifadhi wa Wanyamapori · Miaka 35</div>
+            <div class="expert-bio">Alikuwa Mkurugenzi wa Hifadhi ya Serengeti kwa miaka 12. Leo anaendelea kufundisha na kutoa ushauri kwa programu za uhifadhi.</div>
+            <div class="expert-quote">"Uzoefu wa miaka mingi ni hazina ambayo haiwezi kununuliwa — ni lazima ishirikishwe na vizazi vijavyo."</div>
+          </div>
+        </div>
+        <div class="expert-card">
+          <div class="expert-top">🐘<div class="expert-badge">Mwanabiolojia</div></div>
+          <div class="expert-body">
+            <div class="expert-name">Bi. F. Mwakasege</div>
+            <div class="expert-role">Ikolojia ya Wanyamapori · Miaka 28</div>
+            <div class="expert-bio">Mtaalam wa ikolojia ya tembo na simba. Amefanya utafiti mkubwa katika hifadhi za Tarangire na Manyara. Mshauri wa kisayansi wa UWAT.</div>
+            <div class="expert-quote">"Kuelewa mwenendo wa wanyamapori kunatusaidia kulinda sio tu wanyama, bali mfumo mzima wa maisha."</div>
+          </div>
+        </div>
+        <div class="expert-card">
+          <div class="expert-top">🌿<div class="expert-badge">Mwanamazingira</div></div>
+          <div class="expert-body">
+            <div class="expert-name">Bw. H. Ndalichako</div>
+            <div class="expert-role">Mazingira na Msitu · Miaka 30</div>
+            <div class="expert-bio">Mtaalamu wa utunzaji wa misitu na vyanzo vya maji. Anashauri miradi ya upandaji miti na uhifadhi wa maeneo ya nje ya hifadhi.</div>
+            <div class="expert-quote">"Mti mmoja si msitu, lakini kila safari inaanza na hatua moja. Tuanze sasa."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /elimu -->
+
+
+<!-- ══════════════════════════════════════════
+     KALENDA PAGE
+══════════════════════════════════════════ -->
+<div id="page-kalenda" class="page">
+
+  <div class="page-hero">
+    <div style="position:relative; z-index:1;">
+      <div class="page-hero-kicker">Kalenda ya Shughuli</div>
+      <h1 class="page-hero-title">Matukio na<br>Maadhimisho 2025</h1>
+      <p class="page-hero-desc">Ratiba kamili ya vikao vya Bodi, mikutano mikuu, siku za kitaifa, na shughuli za wanachama kwa mwaka 2025.</p>
+    </div>
+  </div>
+
+  <div class="kalenda-full">
+    <div class="kalenda-timeline">
+
+      <div class="kalenda-month">
+        <div class="kalenda-month-title">Aprili 2025</div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">22<small>APR</small></div>
+          <div class="kal-event-info">
+            <h4>Siku ya Dunia ya Mama Ardhi (Earth Day)</h4>
+            <p>UWAT itashiriki katika maadhimisho ya kitaifa ya Siku ya Dunia kwa kampeni ya upandaji miti na elimu ya mazingira katika shule za karibu na hifadhi.</p>
+            <span class="kal-event-type kal-type-kitaifa">Siku ya Kimataifa</span>
+          </div>
+        </div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">28<small>APR</small></div>
+          <div class="kal-event-info">
+            <h4>Kikao cha Bodi ya Uongozi – Robo ya Kwanza</h4>
+            <p>Vikao vya Bodi ya UWAT vya robo ya kwanza 2025. Mjadala kuhusu ripoti za fedha, programu za afya na mipango ya utalii kwa wastaafu. Arusha – Makao Makuu.</p>
+            <span class="kal-event-type kal-type-mkutano">Bodi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kalenda-month">
+        <div class="kalenda-month-title">Mei 2025</div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">15<small>MEI</small></div>
+          <div class="kal-event-info">
+            <h4>Mkutano Mkuu wa Mwaka — AGM 2025</h4>
+            <p>Mkutano Mkuu wa Mwaka (AGM) wa UWAT. Uchaguzi wa viongozi wapya, iwapo itahitajika. Kupitisha ripoti za fedha, mipango ya mwaka na maazimio. Wanachama wote wamealikwa.</p>
+            <span class="kal-event-type kal-type-mkutano">Mkutano Mkuu</span>
+          </div>
+        </div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">22<small>MEI</small></div>
+          <div class="kal-event-info">
+            <h4>Siku ya Kimataifa ya Bionuai</h4>
+            <p>UWAT itaandaa mdahalo wa kielimu kuhusu bionuai ya Tanzania na umuhimu wa kulinda hifadhi. Mwasiliano na vyombo vya habari umepangwa.</p>
+            <span class="kal-event-type kal-type-kitaifa">Siku ya Kimataifa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kalenda-month">
+        <div class="kalenda-month-title">Juni 2025</div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">05<small>JUN</small></div>
+          <div class="kal-event-info">
+            <h4>Siku ya Mazingira Duniani (World Environment Day)</h4>
+            <p>Washiriki wetu watakuwa mstari wa mbele katika maadhimisho ya kitaifa. Kampeni za utunzaji wa hifadhi na upandaji miti zinapangwa katika mikoa 5.</p>
+            <span class="kal-event-type kal-type-kitaifa">Siku ya Kimataifa</span>
+          </div>
+        </div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">20<small>JUN</small></div>
+          <div class="kal-event-info">
+            <h4>Warsha ya Ujasiriamali kwa Wastaafu</h4>
+            <p>Mafunzo ya siku mbili kuhusu biashara na uwekezaji kwa wastaafu. Itahusisha wataalamu kutoka benki, vikundi vya ujasiriamali na serikali.</p>
+            <span class="kal-event-type kal-type-mkutano">Mafunzo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kalenda-month">
+        <div class="kalenda-month-title">Julai – Agosti 2025</div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">15<small>JUL</small></div>
+          <div class="kal-event-info">
+            <h4>Kikao cha Bodi – Robo ya Pili 2025</h4>
+            <p>Tathmini ya nusu ya mwaka, mapitio ya bajeti, na maamuzi kuhusu programu za elimu na uhifadhi. Mkutano wa ndani wa wajumbe wa Bodi tu.</p>
+            <span class="kal-event-type kal-type-mkutano">Bodi</span>
+          </div>
+        </div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">10<small>AGO</small></div>
+          <div class="kal-event-info">
+            <h4>Ziara ya Kitalii — Hifadhi ya Ruaha</h4>
+            <p>Safari ya wanachama wa UWAT kwenda Hifadhi ya Ruaha. Kuungana na jamii za karibu, ziara ya kielimu na picha za kumbukumbu. Nafasi 40 tu.</p>
+            <span class="kal-event-type kal-type-utalii">Utalii</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kalenda-month">
+        <div class="kalenda-month-title">Septemba – Oktoba 2025</div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">27<small>SEP</small></div>
+          <div class="kal-event-info">
+            <h4>Wiki ya Utalii Duniani — UWAT Inashiriki</h4>
+            <p>Tanzania na dunia inaadhimisha Wiki ya Utalii Duniani. UWAT itaandaa tukio maalum katika Ngorongoro na Serengeti ikionyesha mchango wa wastaafu katika sekta ya utalii.</p>
+            <span class="kal-event-type kal-type-kitaifa">Wiki ya Utalii</span>
+          </div>
+        </div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">01<small>OKT</small></div>
+          <div class="kal-event-info">
+            <h4>Siku ya Wastaafu Duniani (International Day of Older Persons)</h4>
+            <p>Maadhimisho makubwa ya UWAT kuadhimisha mchango wa wastaafu katika jamii na sekta ya uhifadhi. Hafla za mikoa yote. Tuzo za heshima zitatolewa.</p>
+            <span class="kal-event-type kal-type-kitaifa">Siku ya Kimataifa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kalenda-month">
+        <div class="kalenda-month-title">Novemba – Desemba 2025</div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">10<small>NOV</small></div>
+          <div class="kal-event-info">
+            <h4>Mkutano wa Tathmini ya Mwaka — Bodi</h4>
+            <p>Kikao cha mwisho cha Bodi kwa mwaka 2025. Tathmini ya mafanikio, maeneo ya kuboresha, na kupanga mwelekeo wa 2026.</p>
+            <span class="kal-event-type kal-type-mkutano">Bodi</span>
+          </div>
+        </div>
+        <div class="kalenda-event-row">
+          <div class="date-pill">20<small>DES</small></div>
+          <div class="kal-event-info">
+            <h4>Karamu ya Mwaka ya Wanachama 2025</h4>
+            <p>Sherehe ya kufunga mwaka kwa wanachama wa UWAT. Tuzo za wanachama bora, maadhimisho ya kustaafu, na burudani za kitamaduni. Karibu wote!</p>
+            <span class="kal-event-type kal-type-kitaifa">Sherehe</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /kalenda -->
+
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-text">U<span>WAT</span></div>
+      <p>Umoja wa Wastaafu TANAPA (UWAT) — mkusanyiko wa hiari wa waliostaafu wa Tanzania National Parks, wakijua uhifadhi ni jukumu la maisha yote.</p>
+      <div class="footer-social">
+        <div class="social-btn">📘</div>
+        <div class="social-btn">🐦</div>
+        <div class="social-btn">📸</div>
+        <div class="social-btn">▶</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Kurasa</h5>
+      <ul>
+        <li><a onclick="showPage('home')">Nyumbani</a></li>
+        <li><a onclick="showPage('habari')">Habari & Matukio</a></li>
+        <li><a onclick="showPage('maktaba')">Maktaba ya Nyaraka</a></li>
+        <li><a onclick="showPage('elimu')">Elimu & Uhifadhi</a></li>
+        <li><a onclick="showPage('kalenda')">Kalenda</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Rasilimali</h5>
+      <ul>
+        <li><a onclick="showPage('maktaba')">Katiba ya UWAT</a></li>
+        <li><a onclick="showPage('maktaba')">Fomu ya Kujiunga</a></li>
+        <li><a onclick="showPage('maktaba')">Fomu ya Bima</a></li>
+        <li><a onclick="showPage('maktaba')">Ripoti za Mwaka</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Wasiliana Nasi</h5>
+      <ul>
+        <li><a>📍 Makao Makuu, Arusha</a></li>
+        <li><a>📞 +255 XXX XXX XXX</a></li>
+        <li><a>✉ info@uwat.or.tz</a></li>
+        <li><a>🌐 www.uwat.or.tz</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Umoja wa Wastaafu TANAPA (UWAT). Haki zote zimehifadhiwa.</span>
+    <span>Ustaafu na Uhifadhi Endelevu 🌿</span>
+  </div>
+</footer>
+
+
+<script>
+  function showPage(id) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // Remove active from nav
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    // Show target
+    document.getElementById('page-' + id).classList.add('active');
+    // Set active nav
+    const navEl = document.getElementById('nav-' + id);
+    if (navEl) navEl.classList.add('active');
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function filterDocs(cat, btn) {
+    // Update buttons
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Filter cards
+    const cards = document.querySelectorAll('#docs-grid .doc-card');
+    cards.forEach(card => {
+      if (cat === 'all') {
+        card.style.display = 'flex';
+      } else {
+        const cats = card.getAttribute('data-cat') || '';
+        card.style.display = cats.includes(cat) ? 'flex' : 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
