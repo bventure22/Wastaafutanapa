@@ -1,950 +1,571 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UWAT — Umoja wa Wastaafu TANAPA</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UWAT | Umoja wa Wastaafu TANAPA Prototype</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --deep-green: #1B4332;
+            --mid-green: #2D6A4F;
+            --earth-tan: #D4A373;
+            --light-cream: #F5EBE0;
+            --text-dark: #212529;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
 
-  :root {
-    --earth: #1a1209;
-    --savanna: #2c1f0a;
-    --amber: #d4820a;
-    --gold: #f2a832;
-    --dust: #e8d5b0;
-    --cream: #f5ede0;
-    --sage: #4a6741;
-    --mist: #8aab82;
-    --bark: #5c3d1e;
-    --sky: #c9dce8;
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-  html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--light-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-  body {
-    background: var(--earth);
-    color: var(--cream);
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 18px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+        /* Navigation */
+        nav {
+            background-color: var(--deep-green);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 3rem;
-    background: rgba(26,18,9,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(212,130,10,0.2);
-  }
-  .nav-logo {
-    display: flex; align-items: center; gap: 0.8rem;
-    text-decoration: none;
-  }
-  .nav-logo .elephant { font-size: 1.6rem; }
-  .nav-logo .brand {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem; font-weight: 900;
-    color: var(--gold); letter-spacing: 0.05em;
-    line-height: 1;
-  }
-  .nav-logo .sub {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.55rem; color: var(--mist);
-    letter-spacing: 0.12em; text-transform: uppercase;
-  }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--dust); text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 0.6rem 1.4rem;
-    border: 1px solid var(--amber);
-    color: var(--gold); text-decoration: none;
-    transition: all 0.25s;
-  }
-  .nav-cta:hover { background: var(--amber); color: var(--earth); }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
 
-  /* ── HERO ── */
-  .hero {
-    position: relative; min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 3rem 5rem;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: url('https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=1800&q=90') center/cover no-repeat;
-    transform-origin: center;
-    animation: heroZoom 20s ease-out infinite alternate;
-  }
-  @keyframes heroZoom {
-    from { transform: scale(1); }
-    to   { transform: scale(1.06); }
-  }
-  .hero-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(
-      170deg,
-      rgba(26,18,9,0.3) 0%,
-      rgba(26,18,9,0.15) 30%,
-      rgba(26,18,9,0.7) 65%,
-      rgba(26,18,9,0.98) 100%
-    );
-  }
-  .hero-tag {
-    position: relative;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 1.5rem;
-    display: flex; align-items: center; gap: 1rem;
-  }
-  .hero-tag::before {
-    content: ''; display: inline-block;
-    width: 40px; height: 1px; background: var(--amber);
-  }
-  .hero-title {
-    position: relative;
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 8vw, 8rem);
-    font-weight: 900; line-height: 0.95;
-    color: var(--cream);
-    margin-bottom: 0.3rem;
-  }
-  .hero-title em {
-    font-style: italic; color: var(--gold);
-    display: block;
-  }
-  .hero-sub {
-    position: relative;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-    font-weight: 300; font-style: italic;
-    color: var(--dust); opacity: 0.9;
-    max-width: 520px; margin-bottom: 2.5rem;
-  }
-  .hero-actions { position: relative; display: flex; gap: 1.2rem; flex-wrap: wrap; }
-  .btn-primary {
-    padding: 1rem 2.4rem;
-    background: var(--amber);
-    color: var(--earth);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
-    text-decoration: none; font-weight: 700;
-    transition: all 0.25s;
-    border: 1px solid var(--amber);
-  }
-  .btn-primary:hover { background: var(--gold); border-color: var(--gold); }
-  .btn-ghost {
-    padding: 1rem 2.4rem;
-    background: transparent;
-    color: var(--cream);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid rgba(232,213,176,0.4);
-    transition: all 0.25s;
-  }
-  .btn-ghost:hover { border-color: var(--cream); }
+        .logo i {
+            color: var(--earth-tan);
+            font-size: 2rem;
+        }
 
-  /* ── STATS STRIP ── */
-  .stats {
-    background: var(--savanna);
-    border-top: 1px solid rgba(212,130,10,0.3);
-    border-bottom: 1px solid rgba(212,130,10,0.3);
-    display: grid; grid-template-columns: repeat(4, 1fr);
-  }
-  .stat {
-    padding: 2.5rem 2rem;
-    text-align: center;
-    border-right: 1px solid rgba(212,130,10,0.15);
-  }
-  .stat:last-child { border-right: none; }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem; font-weight: 900;
-    color: var(--gold); line-height: 1;
-    display: block; margin-bottom: 0.3rem;
-  }
-  .stat-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--mist);
-  }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
 
-  /* ── SECTION BASE ── */
-  section { padding: 7rem 3rem; }
-  .section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--amber); margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 0.8rem;
-  }
-  .section-label::after {
-    content: ''; flex: 1; max-width: 60px;
-    height: 1px; background: var(--amber); opacity: 0.5;
-  }
-  h2.section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 4vw, 3.8rem);
-    font-weight: 700; line-height: 1.1;
-    color: var(--cream); margin-bottom: 2rem;
-  }
-  h2.section-title em { color: var(--gold); font-style: italic; }
+        .nav-links li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
 
-  /* ── ABOUT ── */
-  .about { background: var(--earth); }
-  .about-inner {
-    max-width: 1300px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
-  }
-  .about-img-wrap {
-    position: relative;
-  }
-  .about-img {
-    width: 100%; aspect-ratio: 4/5; object-fit: cover;
-    filter: saturate(0.8) contrast(1.1);
-  }
-  .about-img-frame {
-    position: absolute; top: -1.5rem; left: -1.5rem; right: 1.5rem; bottom: 1.5rem;
-    border: 1px solid rgba(212,130,10,0.4);
-    pointer-events: none;
-  }
-  .about-badge {
-    position: absolute; bottom: -1.5rem; right: -1.5rem;
-    background: var(--amber);
-    padding: 1.5rem;
-    text-align: center;
-  }
-  .about-badge span {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem; font-weight: 900;
-    color: var(--earth); display: block; line-height: 1;
-  }
-  .about-badge small {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--earth); opacity: 0.8;
-  }
-  .about-text p {
-    color: var(--dust); margin-bottom: 1.5rem;
-    font-size: 1.1rem; line-height: 1.8; font-weight: 300;
-  }
-  .pillars {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;
-  }
-  .pillar {
-    padding: 1.2rem; border: 1px solid rgba(212,130,10,0.2);
-    background: rgba(44,31,10,0.5);
-    transition: border-color 0.2s;
-  }
-  .pillar:hover { border-color: rgba(212,130,10,0.6); }
-  .pillar-icon { font-size: 1.4rem; margin-bottom: 0.5rem; display: block; }
-  .pillar-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 0.3rem;
-  }
-  .pillar p { font-size: 0.85rem; color: var(--mist); line-height: 1.5; margin: 0; }
+        .nav-links li a:hover {
+            color: var(--earth-tan);
+        }
 
-  /* ── PROGRAMS ── */
-  .programs { background: var(--savanna); }
-  .programs-inner { max-width: 1300px; margin: 0 auto; }
-  .programs-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-    background: rgba(212,130,10,0.15); margin-top: 4rem;
-  }
-  .program-card {
-    background: var(--savanna); padding: 2.5rem 2rem;
-    transition: background 0.25s;
-    cursor: default;
-  }
-  .program-card:hover { background: rgba(44,31,10,0.8); }
-  .program-icon {
-    font-size: 2rem; margin-bottom: 1.2rem; display: block;
-  }
-  .program-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem; font-weight: 700;
-    color: var(--cream); margin-bottom: 0.8rem;
-  }
-  .program-card p { font-size: 0.95rem; color: var(--mist); line-height: 1.7; }
-  .program-link {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    margin-top: 1.2rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--amber); text-decoration: none;
-    transition: gap 0.2s, color 0.2s;
-  }
-  .program-link:hover { gap: 0.8rem; color: var(--gold); }
+        .join-btn {
+            background-color: var(--earth-tan);
+            color: var(--deep-green);
+            padding: 8px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
 
-  /* ── NEWS ── */
-  .news { background: var(--earth); }
-  .news-inner { max-width: 1300px; margin: 0 auto; }
-  .news-grid {
-    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1.5rem; margin-top: 3rem;
-  }
-  .news-card { position: relative; overflow: hidden; }
-  .news-card img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: saturate(0.7) brightness(0.85);
-    transition: filter 0.4s, transform 0.6s;
-    display: block;
-  }
-  .news-card:hover img { filter: saturate(1) brightness(0.9); transform: scale(1.04); }
-  .news-card .news-body {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 1.8rem 1.5rem;
-    background: linear-gradient(to top, rgba(26,18,9,0.95) 0%, transparent 100%);
-  }
-  .news-cat {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 0.5rem;
-  }
-  .news-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.25rem; color: var(--cream); line-height: 1.3;
-  }
-  .news-card.main { min-height: 520px; }
-  .news-card.main h3 { font-size: 1.7rem; }
-  .news-card.side { min-height: 250px; }
-  .news-date {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; color: var(--mist); margin-top: 0.5rem;
-  }
+        .join-btn:hover {
+            background-color: var(--white);
+            transform: scale(1.05);
+        }
 
-  /* ── QUOTE BAND ── */
-  .quote-band {
-    background: var(--amber);
-    padding: 5rem 3rem;
-    text-align: center;
-    position: relative; overflow: hidden;
-  }
-  .quote-band::before {
-    content: '"';
-    position: absolute; top: -2rem; left: 2rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 20rem; color: rgba(26,18,9,0.12);
-    line-height: 1; pointer-events: none;
-    font-weight: 900;
-  }
-  .quote-band blockquote {
-    position: relative;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.6rem, 3vw, 2.6rem);
-    font-style: italic; font-weight: 300;
-    color: var(--earth); max-width: 900px; margin: 0 auto 1.5rem;
-    line-height: 1.5;
-  }
-  .quote-band cite {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: rgba(26,18,9,0.7);
-  }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
 
-  /* ── EVENTS ── */
-  .events { background: var(--savanna); }
-  .events-inner { max-width: 1300px; margin: 0 auto; }
-  .events-list { margin-top: 3rem; }
-  .event-item {
-    display: grid; grid-template-columns: 90px 1fr auto;
-    gap: 2rem; align-items: center;
-    padding: 1.8rem 0;
-    border-bottom: 1px solid rgba(212,130,10,0.15);
-    transition: padding 0.2s;
-  }
-  .event-item:hover { padding-left: 0.5rem; }
-  .event-date-box {
-    background: rgba(212,130,10,0.1);
-    border: 1px solid rgba(212,130,10,0.3);
-    text-align: center; padding: 0.8rem;
-    flex-shrink: 0;
-  }
-  .event-day {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem; font-weight: 900;
-    color: var(--gold); line-height: 1; display: block;
-  }
-  .event-month {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--mist);
-  }
-  .event-info h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem; color: var(--cream); margin-bottom: 0.3rem;
-  }
-  .event-info p { font-size: 0.9rem; color: var(--mist); }
-  .event-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 0.3rem 0.8rem;
-    border: 1px solid rgba(212,130,10,0.4);
-    color: var(--amber); white-space: nowrap;
-  }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+        }
 
-  /* ── LIBRARY ── */
-  .library { background: var(--earth); }
-  .library-inner { max-width: 1300px; margin: 0 auto; }
-  .library-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 3rem;
-  }
-  .doc-card {
-    border: 1px solid rgba(212,130,10,0.2);
-    padding: 1.8rem;
-    background: rgba(44,31,10,0.3);
-    display: flex; flex-direction: column; gap: 0.8rem;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .doc-card:hover { border-color: rgba(212,130,10,0.6); background: rgba(44,31,10,0.6); }
-  .doc-type {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--amber);
-  }
-  .doc-icon { font-size: 1.8rem; }
-  .doc-card h4 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem; color: var(--cream); line-height: 1.3;
-  }
-  .doc-card p { font-size: 0.85rem; color: var(--mist); line-height: 1.6; flex: 1; }
-  .doc-download {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--gold); text-decoration: none;
-    border-top: 1px solid rgba(212,130,10,0.2); padding-top: 0.8rem; margin-top: 0.5rem;
-    transition: gap 0.2s;
-  }
-  .doc-download:hover { gap: 0.9rem; }
+        /* Sections Visibility */
+        section {
+            display: none;
+            padding: 60px 10%;
+            animation: fadeIn 0.5s ease-in;
+        }
 
-  /* ── JOIN CTA ── */
-  .cta-section {
-    position: relative; overflow: hidden;
-    padding: 9rem 3rem;
-    background: var(--sage);
-    text-align: center;
-  }
-  .cta-section::before {
-    content: ''; position: absolute; inset: 0;
-    background: url('https://images.unsplash.com/photo-1549366021-9f761d450615?w=1400&q=80') center/cover;
-    opacity: 0.2; filter: saturate(0.4);
-  }
-  .cta-inner { position: relative; max-width: 700px; margin: 0 auto; }
-  .cta-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 900; line-height: 1.1; color: var(--cream);
-    margin-bottom: 1.5rem;
-  }
-  .cta-section p {
-    font-size: 1.15rem; color: rgba(245,237,224,0.85);
-    font-weight: 300; font-style: italic;
-    margin-bottom: 2.5rem;
-  }
+        section.active {
+            display: block;
+        }
 
-  /* ── FOOTER ── */
-  footer {
-    background: #0f0b05;
-    padding: 5rem 3rem 3rem;
-    border-top: 1px solid rgba(212,130,10,0.2);
-  }
-  .footer-inner {
-    max-width: 1300px; margin: 0 auto;
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem;
-    margin-bottom: 4rem;
-  }
-  .footer-brand p {
-    font-size: 0.95rem; color: var(--mist); line-height: 1.7; margin-top: 1rem;
-  }
-  .footer-brand .logo-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem; font-weight: 900; color: var(--gold);
-  }
-  .footer-col h5 {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--amber); margin-bottom: 1.2rem;
-  }
-  .footer-col ul { list-style: none; }
-  .footer-col ul li { margin-bottom: 0.6rem; }
-  .footer-col ul li a {
-    font-size: 0.9rem; color: var(--mist); text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-col ul li a:hover { color: var(--cream); }
-  .footer-col .contact-item {
-    font-size: 0.9rem; color: var(--mist);
-    display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.6rem;
-  }
-  .footer-bottom {
-    max-width: 1300px; margin: 0 auto;
-    padding-top: 2rem; border-top: 1px solid rgba(212,130,10,0.15);
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 1rem;
-  }
-  .footer-bottom p {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem; letter-spacing: 0.08em; color: rgba(138,171,130,0.6);
-  }
-  .social-links { display: flex; gap: 1rem; }
-  .social-links a {
-    width: 36px; height: 36px;
-    border: 1px solid rgba(212,130,10,0.3);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--mist); text-decoration: none; font-size: 0.8rem;
-    transition: all 0.2s;
-  }
-  .social-links a:hover { border-color: var(--amber); color: var(--gold); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-  /* ── DIVIDER ── */
-  .divider {
-    height: 1px; background: rgba(212,130,10,0.2);
-    margin: 0 3rem;
-  }
+        /* Hero Section */
+        #home {
+            background: linear-gradient(rgba(27, 67, 50, 0.8), rgba(27, 67, 50, 0.8)), 
+                        url('https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 150px 10%;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-  /* ── SCROLL ANIM ── */
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 20px; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 30px; max-width: 700px; }
 
-  /* ── DECORATIVE LINE ── */
-  .gold-line {
-    width: 60px; height: 2px; background: var(--amber);
-    margin-bottom: 2rem;
-  }
+        /* Filter Style (News) */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
 
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    section { padding: 5rem 1.5rem; }
-    .about-inner { grid-template-columns: 1fr; gap: 4rem; }
-    .about-img-wrap { order: -1; }
-    .stats { grid-template-columns: repeat(2,1fr); }
-    .programs-grid { grid-template-columns: 1fr; }
-    .news-grid { grid-template-columns: 1fr; }
-    .library-grid { grid-template-columns: 1fr; }
-    .footer-inner { grid-template-columns: 1fr 1fr; }
-    .event-item { grid-template-columns: 80px 1fr; }
-    .event-tag { display: none; }
-  }
-</style>
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid var(--deep-green);
+            background: transparent;
+            color: var(--deep-green);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .filter-btn.active {
+            background: var(--deep-green);
+            color: var(--white);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .news-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .news-info { padding: 20px; }
+        .news-tag { color: var(--earth-tan); font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+
+        /* Maktaba (Library) */
+        .doc-list {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .doc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .doc-item:hover { background: #f9f9f9; }
+
+        .download-btn {
+            color: var(--mid-green);
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* Calendar */
+        .calendar-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .event-card {
+            display: flex;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid var(--earth-tan);
+        }
+
+        .event-card.next-event {
+            border-left: 5px solid #e63946;
+            background: #fff5f5;
+            position: relative;
+        }
+
+        .event-card.next-event::after {
+            content: "IJAYO";
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background: #e63946;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+        }
+
+        .event-date {
+            min-width: 100px;
+            text-align: center;
+            border-right: 1px solid #eee;
+            margin-right: 20px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        form input, form select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--deep-green);
+                padding: 20px;
+                text-align: center;
+            }
+            .nav-links.mobile-active { display: flex; }
+            .hamburger { display: flex; }
+            .hero-content h1 { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    <span class="elephant">🐘</span>
-    <div>
-      <div class="brand">UWAT</div>
-      <div class="sub">Umoja wa Wastaafu TANAPA</div>
-    </div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#about">Sisi ni Nani</a></li>
-    <li><a href="#programs">Shughuli</a></li>
-    <li><a href="#news">Habari</a></li>
-    <li><a href="#events">Kalenda</a></li>
-    <li><a href="#library">Maktaba</a></li>
-  </ul>
-  <a href="#join" class="nav-cta">Jiunge Nasi</a>
-</nav>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-tree"></i>
+            <span>UWAT</span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a onclick="showSection('home')">Mwanzo</a></li>
+            <li><a onclick="showSection('about')">Kuhusu</a></li>
+            <li><a onclick="showSection('news')">Habari</a></li>
+            <li><a onclick="showSection('maktaba')">Maktaba</a></li>
+            <li><a onclick="showSection('calendar')">Kalenda</a></li>
+        </ul>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <button class="join-btn" onclick="toggleModal()">Jiunge Nasi</button>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-tag">Tanazania National Parks — Wastaafu wa Hifadhi</div>
-  <h1 class="hero-title">
-    Kulinda Urithi<br>
-    <em>wa Taifa Letu</em>
-  </h1>
-  <p class="hero-sub">
-    Wastaafu wa TANAPA wanaendelea kuwa nguzo ya uhifadhi — kwa uzoefu, mshikamano, na moyo wa dhati.
-  </p>
-  <div class="hero-actions">
-    <a href="#about" class="btn-primary">Jifunza Zaidi</a>
-    <a href="#join" class="btn-ghost">Jiunge Nasi</a>
-  </div>
-</section>
+    <!-- Home Section -->
+    <section id="home" class="active">
+        <div class="hero-content">
+            <h1>Umoja wa Wastaafu TANAPA</h1>
+            <p>Tunatunza urithi wa hifadhi zetu na kuendeleza umoja, ustawi, na mshikamano kwa wastaafu wote wa Shirika la Hifadhi za Taifa Tanzania.</p>
+            <button class="join-btn" style="padding: 15px 40px; font-size: 1.1rem;" onclick="showSection('about')">Gundua Zaidi</button>
+        </div>
+    </section>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat reveal">
-    <span class="stat-num">500+</span>
-    <span class="stat-label">Wanachama</span>
-  </div>
-  <div class="stat reveal reveal-delay-1">
-    <span class="stat-num">22</span>
-    <span class="stat-label">Hifadhi za Taifa</span>
-  </div>
-  <div class="stat reveal reveal-delay-2">
-    <span class="stat-num">15+</span>
-    <span class="stat-label">Miaka ya Huduma</span>
-  </div>
-  <div class="stat reveal reveal-delay-3">
-    <span class="stat-num">2009</span>
-    <span class="stat-label">Mwaka wa Kuanzishwa</span>
-  </div>
-</div>
+    <!-- About Section -->
+    <section id="about">
+        <h2 style="color: var(--deep-green); margin-bottom: 20px; border-bottom: 3px solid var(--earth-tan); display: inline-block;">Kuhusu UWAT</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 30px;">
+            <div>
+                <h3>Dira Yetu</h3>
+                <p>Kuwa umoja imara unaojali maslahi ya wastaafu wa TANAPA na kuendelea kutoa mchango wa kitaalamu katika uhifadhi wa maliasili.</p>
+            </div>
+            <div>
+                <h3>Dhima Yetu</h3>
+                <p>Kuunganisha wastaafu, kubadilishana uzoefu, na kusaidiana katika masuala ya kijamii na kiuchumi baada ya utumishi serikalini.</p>
+            </div>
+        </div>
+        <div style="margin-top: 40px;">
+            <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1200" alt="Wildlife" style="width: 100%; border-radius: 15px; height: 300px; object-fit: cover;">
+        </div>
+    </section>
 
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="about-inner">
-    <div class="about-img-wrap reveal">
-      <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&q=85" alt="Wanachama wa UWAT" class="about-img">
-      <div class="about-img-frame"></div>
-      <div class="about-badge">
-        <span>30+</span>
-        <small>Miaka ya Uzoefu</small>
-      </div>
-    </div>
-    <div class="about-text reveal reveal-delay-2">
-      <div class="section-label">Kuhusu Sisi</div>
-      <h2 class="section-title">Sisi ni <em>Nani?</em></h2>
-      <p>Umoja wa Wastaafu TANAPA (UWAT) ni shirika la hiari lililoanzishwa na waliostaafu kutoka Tanzania National Parks. Tunajumuisha wastaafu kutoka ngazi mbalimbali — walinzi wa hifadhi, wasimamizi, watafiti, na wataalamu wa jinsia nyingi za utaalamu.</p>
-      <p>Lengo letu kuu ni kuwaunganisha wastaafu hawa ili waendelee kuchangia jamii na sekta ya uhifadhi kupitia uzoefu wao mkubwa, huku wakishirikiana katika masuala ya ustawi wa kijamii na kiuchumi.</p>
-      <div class="pillars">
-        <div class="pillar">
-          <span class="pillar-icon">🌿</span>
-          <div class="pillar-title">Uhifadhi</div>
-          <p>Kulinda mazingira na wanyamapori wa Tanzania</p>
+    <!-- News/Blog Section -->
+    <section id="news">
+        <h2 style="text-align: center; margin-bottom: 30px;">Habari na Matukio</h2>
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterNews('all', this)">Zote</button>
+            <button class="filter-btn" onclick="filterNews('matukio', this)">Matukio</button>
+            <button class="filter-btn" onclick="filterNews('blog', this)">Blog</button>
         </div>
-        <div class="pillar">
-          <span class="pillar-icon">🤝</span>
-          <div class="pillar-title">Mshikamano</div>
-          <p>Kujenga udugu na msaada kati ya wastaafu</p>
-        </div>
-        <div class="pillar">
-          <span class="pillar-icon">💼</span>
-          <div class="pillar-title">Ujasiriamali</div>
-          <p>Shughuli za kiuchumi kwa wanachama</p>
-        </div>
-        <div class="pillar">
-          <span class="pillar-icon">🎓</span>
-          <div class="pillar-title">Elimu</div>
-          <p>Kushiriki elimu kwa vizazi vijavyo</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- PROGRAMS -->
-<section class="programs" id="programs">
-  <div class="programs-inner">
-    <div class="section-label reveal">Maeneo ya Kazi Yetu</div>
-    <h2 class="section-title reveal">Tunachofanya <em>Kila Siku</em></h2>
-    <div class="programs-grid">
-      <div class="program-card reveal">
-        <span class="program-icon">🦁</span>
-        <h3>Uhifadhi wa Wanyamapori</h3>
-        <p>Wastaafu wetu wanaendelea kuwa mabalozi wa uhifadhi, wakishiriki katika programu za elimu na ufuatiliaji wa wanyamapori katika hifadhi za Tanzania.</p>
-        <a href="#" class="program-link">Jifunza Zaidi →</a>
-      </div>
-      <div class="program-card reveal reveal-delay-1">
-        <span class="program-icon">🏥</span>
-        <h3>Huduma za Afya</h3>
-        <p>Tunasimamia mipango ya bima ya afya na kutoa ushauri wa ustawi kwa wanachama na familia zao, kuhakikisha maisha mazuri baada ya kustaafu.</p>
-        <a href="#" class="program-link">Jifunza Zaidi →</a>
-      </div>
-      <div class="program-card reveal reveal-delay-2">
-        <span class="program-icon">💰</span>
-        <h3>Ustawi wa Kiuchumi</h3>
-        <p>Tunatoa mafunzo ya ujasiriamali, ushauri wa uwekezaji, na fursa za kibiashara kwa wanachama ili kuimarisha maisha yao ya kifedha.</p>
-        <a href="#" class="program-link">Jifunza Zaidi →</a>
-      </div>
-      <div class="program-card reveal reveal-delay-3">
-        <span class="program-icon">🌍</span>
-        <h3>Utalii Endelevu</h3>
-        <p>Kupitia uzoefu wa miaka mingi katika TANAPA, wanachama wetu wanasaidia kukuza utalii wa kielimu na wa kimaumbile nchini Tanzania.</p>
-        <a href="#" class="program-link">Jifunza Zaidi →</a>
-      </div>
-      <div class="program-card reveal reveal-delay-1">
-        <span class="program-icon">📚</span>
-        <h3>Mafunzo na Elimu</h3>
-        <p>Tunaandaa warsha, semina na mafunzo yanayohusu masuala ya ustawi wa wastaafu, mbinu za ujasiriamali na usimamizi wa mazingira.</p>
-        <a href="#" class="program-link">Jifunza Zaidi →</a>
-      </div>
-      <div class="program-card reveal reveal-delay-2">
-        <span class="program-icon">🤲</span>
-        <h3>Huduma za Jamii</h3>
-        <p>Kushirikiana na jamii zinazozunguka hifadhi za TANAPA katika miradi ya maendeleo endelevu na uhifadhi wa mazingira.</p>
-        <a href="#" class="program-link">Jifunza Zaidi →</a>
-      </div>
-    </div>
-  </div>
-</section>
+        <div class="news-grid" id="newsGrid">
+            <!-- News Item 1 -->
+            <div class="news-card" data-category="matukio">
+                <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?auto=format&fit=crop&q=80&w=400');"></div>
+                <div class="news-info">
+                    <span class="news-tag">Matukio</span>
+                    <h3>Mkutano Mkuu wa Mwaka 2024</h3>
+                    <p>Wastaafu wamekutana jijini Arusha kujadili maendeleo ya mfuko wa uwekezaji...</p>
+                </div>
+            </div>
+            <!-- News Item 2 -->
+            <div class="news-card" data-category="blog">
+                <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb773b09?auto=format&fit=crop&q=80&w=400');"></div>
+                <div class="news-info">
+                    <span class="news-tag">Blog</span>
+                    <h3>Maisha Baada ya Utumishi</h3>
+                    <p>Vidokezo vya kujiandaa kisaikolojia na kiuchumi kabla ya kustaafu utumishi wa umma...</p>
+                </div>
+            </div>
+            <!-- News Item 3 -->
+            <div class="news-card" data-category="matukio">
+                <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1534073828943-f801091bb18c?auto=format&fit=crop&q=80&w=400');"></div>
+                <div class="news-info">
+                    <span class="news-tag">Matukio</span>
+                    <h3>Ziara ya Hifadhi ya Ruaha</h3>
+                    <p>Wastaafu watembelea hifadhi ya Taifa ya Ruaha kama sehemu ya utalii wa ndani...</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- NEWS -->
-<section class="news" id="news">
-  <div class="news-inner">
-    <div class="section-label reveal">Habari & Matukio</div>
-    <h2 class="section-title reveal">Habari <em>Mpya</em></h2>
-    <div class="news-grid">
-      <div class="news-card main reveal">
-        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=900&q=85" alt="Mkutano Mkuu">
-        <div class="news-body">
-          <div class="news-cat">Mkutano Mkuu</div>
-          <h3>Mkutano Mkuu wa UWAT 2024 Ulifanikiwa — Mwelekeo Mpya Unaanza</h3>
-          <div class="news-date">📅 15 Novemba 2024</div>
+    <!-- Maktaba Section -->
+    <section id="maktaba">
+        <h2 style="margin-bottom: 30px;">Maktaba ya Nyaraka</h2>
+        <div class="doc-list">
+            <div class="doc-item">
+                <div>
+                    <i class="fas fa-file-pdf" style="color: #e63946; margin-right: 10px;"></i>
+                    <span>Katiba ya UWAT (Toleo la 2023)</span>
+                </div>
+                <span class="download-btn" onclick="simulateDownload('Katiba ya UWAT.pdf')">Pakua PDF</span>
+            </div>
+            <div class="doc-item">
+                <div>
+                    <i class="fas fa-file-pdf" style="color: #e63946; margin-right: 10px;"></i>
+                    <span>Mwongozo wa Mafao ya Wastaafu</span>
+                </div>
+                <span class="download-btn" onclick="simulateDownload('Mwongozo_Mafao.pdf')">Pakua PDF</span>
+            </div>
+            <div class="doc-item">
+                <div>
+                    <i class="fas fa-file-image" style="color: var(--mid-green); margin-right: 10px;"></i>
+                    <span>Fomu ya Maombi ya Mkopo wa Elimu</span>
+                </div>
+                <span class="download-btn" onclick="simulateDownload('Fomu_Mkopo.jpg')">Pakua Nakala</span>
+            </div>
         </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:1.5rem;">
-        <div class="news-card side reveal reveal-delay-1">
-          <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600&q=80" alt="Serengeti">
-          <div class="news-body">
-            <div class="news-cat">Ziara</div>
-            <h3>Ziara ya Kitalii — Serengeti 2024</h3>
-            <div class="news-date">📅 8 Oktoba 2024</div>
-          </div>
-        </div>
-        <div class="news-card side reveal reveal-delay-2">
-          <img src="https://images.unsplash.com/photo-1549366021-9f761d450615?w=600&q=80" alt="Siku ya Tembo">
-          <div class="news-body">
-            <div class="news-cat">Uhifadhi</div>
-            <h3>UWAT Inasherehekea Siku ya Tembo Duniani</h3>
-            <div class="news-date">📅 12 Agosti 2024</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- QUOTE -->
-<div class="quote-band">
-  <div class="gold-line" style="margin:0 auto 2rem;"></div>
-  <blockquote>
-    "Hatuwezi kulinda kile ambacho hatukijui — na sisi tunakijua vizuri zaidi ya mtu yeyote."
-  </blockquote>
-  <cite>— Mwenyekiti, Umoja wa Wastaafu TANAPA</cite>
-</div>
+    <!-- Calendar Section -->
+    <section id="calendar">
+        <h2 style="margin-bottom: 30px;">Ratiba ya Shughuli</h2>
+        <div class="calendar-list">
+            <div class="event-card next-event">
+                <div class="event-date">
+                    <h3 style="color: var(--deep-green);">15</h3>
+                    <span>Mei, 2024</span>
+                </div>
+                <div>
+                    <h3>Mkutano wa Kikanda - Kanda ya Kaskazini</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Arusha Hotel, 09:00 Alasiri</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-date">
+                    <h3 style="color: var(--deep-green);">02</h3>
+                    <span>Juni, 2024</span>
+                </div>
+                <div>
+                    <h3>Zoezi la Kupanda Miti</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Nje ya Ofisi za TANAPA HQ</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-date">
+                    <h3 style="color: var(--deep-green);">20</h3>
+                    <span>Julai, 2024</span>
+                </div>
+                <div>
+                    <h3>Semina ya Afya ya Akili</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Online (Zoom Meeting)</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- EVENTS -->
-<section class="events" id="events">
-  <div class="events-inner">
-    <div class="section-label reveal">Kalenda 2025</div>
-    <h2 class="section-title reveal">Matukio <em>Yanayokuja</em></h2>
-    <div class="events-list">
-      <div class="event-item reveal">
-        <div class="event-date-box">
-          <span class="event-day">22</span>
-          <span class="event-month">Apr</span>
-        </div>
-        <div class="event-info">
-          <h4>Siku ya Dunia ya Mama Ardhi</h4>
-          <p>📍 Hifadhi Zote Tanzania — Kampeni ya upandaji miti na elimu ya mazingira</p>
-        </div>
-        <span class="event-tag">Siku ya Kimataifa</span>
-      </div>
-      <div class="event-item reveal">
-        <div class="event-date-box">
-          <span class="event-day">15</span>
-          <span class="event-month">Mei</span>
-        </div>
-        <div class="event-info">
-          <h4>Mkutano Mkuu wa Mwaka — AGM 2025</h4>
-          <p>📍 Arusha, Nyumba ya Mkutano | 09:00 – 16:00</p>
-        </div>
-        <span class="event-tag">Mkutano Mkuu</span>
-      </div>
-      <div class="event-item reveal">
-        <div class="event-date-box">
-          <span class="event-day">20</span>
-          <span class="event-month">Jun</span>
-        </div>
-        <div class="event-info">
-          <h4>Warsha ya Ujasiriamali kwa Wastaafu</h4>
-          <p>📍 Dar es Salaam — Mafunzo ya biashara na uwekezaji</p>
-        </div>
-        <span class="event-tag">Mafunzo</span>
-      </div>
-      <div class="event-item reveal">
-        <div class="event-date-box">
-          <span class="event-day">27</span>
-          <span class="event-month">Sep</span>
-        </div>
-        <div class="event-info">
-          <h4>Wiki ya Utalii Duniani — UWAT Inashiriki</h4>
-          <p>📍 Serengeti & Ngorongoro</p>
-        </div>
-        <span class="event-tag">Utalii</span>
-      </div>
-      <div class="event-item reveal">
-        <div class="event-date-box">
-          <span class="event-day">01</span>
-          <span class="event-month">Okt</span>
-        </div>
-        <div class="event-info">
-          <h4>Siku ya Wastaafu Duniani</h4>
-          <p>📍 Dar es Salaam & Matawi Yote — Tuzo za heshima</p>
-        </div>
-        <span class="event-tag">Siku ya Kimataifa</span>
-      </div>
-      <div class="event-item reveal">
-        <div class="event-date-box">
-          <span class="event-day">20</span>
-          <span class="event-month">Des</span>
-        </div>
-        <div class="event-info">
-          <h4>Karamu ya Mwaka ya Wanachama 2025</h4>
-          <p>📍 Makao Makuu, Arusha — Sherehe ya kufunga mwaka</p>
-        </div>
-        <span class="event-tag">Sherehe</span>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Membership Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleModal()">&times;</span>
+            <h2 style="color: var(--deep-green); margin-bottom: 20px;">Fomu ya Uanachama</h2>
+            <form id="joinForm" onsubmit="handleForm(event)">
+                <label>Jina Kamili</label>
+                <input type="text" placeholder="Ingiza jina lako" required>
+                
+                <label>Namba ya Ajira (Enzi za Utumishi)</label>
+                <input type="text" placeholder="Mfano: TNP-000">
 
-<!-- LIBRARY -->
-<section class="library" id="library">
-  <div class="library-inner">
-    <div class="section-label reveal">Nyaraka & Rasilimali</div>
-    <h2 class="section-title reveal">Maktaba ya <em>UWAT</em></h2>
-    <div class="library-grid">
-      <div class="doc-card reveal">
-        <div class="doc-type">Kisheria · PDF</div>
-        <span class="doc-icon">📄</span>
-        <h4>Katiba ya UWAT — Toleo la 2023</h4>
-        <p>Nakala kamili ya Katiba ya Umoja wa Wastaafu TANAPA, ikijumuisha sheria na kanuni zote zinazosimamia umoja.</p>
-        <a href="#" class="doc-download">⬇ Pakua (2.4 MB)</a>
-      </div>
-      <div class="doc-card reveal reveal-delay-1">
-        <div class="doc-type">Kisheria · PDF</div>
-        <span class="doc-icon">📋</span>
-        <h4>Kanuni za Uendeshaji wa Umoja</h4>
-        <p>Mwongozo wa kanuni na taratibu zinazosimamia mikutano, uchaguzi, na uendeshaji wa shughuli za UWAT.</p>
-        <a href="#" class="doc-download">⬇ Pakua (1.8 MB)</a>
-      </div>
-      <div class="doc-card reveal reveal-delay-2">
-        <div class="doc-type">Fomu · Word/PDF</div>
-        <span class="doc-icon">📝</span>
-        <h4>Fomu ya Kujiunga na UWAT</h4>
-        <p>Jaza fomu hii ili kuomba uanachama wa UWAT. Itume kwa Sekretarieti au tawi lako la karibu.</p>
-        <a href="#" class="doc-download">⬇ Pakua (0.5 MB)</a>
-      </div>
-      <div class="doc-card reveal">
-        <div class="doc-type">Afya · PDF</div>
-        <span class="doc-icon">💊</span>
-        <h4>Mwongozo wa Afya kwa Wastaafu 2024</h4>
-        <p>Taarifa kamili kuhusu huduma za afya zinazopatikana, hospitali zinazokubaliwa, na jinsi ya kutumia bima yako.</p>
-        <a href="#" class="doc-download">⬇ Pakua (3.1 MB)</a>
-      </div>
-      <div class="doc-card reveal reveal-delay-1">
-        <div class="doc-type">Afya · PDF</div>
-        <span class="doc-icon">🏥</span>
-        <h4>Fomu ya Ombi la Bima ya Afya</h4>
-        <p>Fomu ya kujisajili kwenye mpango wa bima ya afya wa UWAT kwa mwanachama na wanafamilia wake.</p>
-        <a href="#" class="doc-download">⬇ Pakua (0.7 MB)</a>
-      </div>
-      <div class="doc-card reveal reveal-delay-2">
-        <div class="doc-type">Ripoti · PDF</div>
-        <span class="doc-icon">📊</span>
-        <h4>Taarifa ya Fedha Iliyokaguliwa 2023/24</h4>
-        <p>Taarifa kamili ya fedha za UWAT kwa mwaka 2023/24 iliyokaguliwa na mkaguzi wa nje.</p>
-        <a href="#" class="doc-download">⬇ Pakua (4.2 MB)</a>
-      </div>
-    </div>
-  </div>
-</section>
+                <label>Mkoa Unaoishi Sasa</label>
+                <select>
+                    <option>Arusha</option>
+                    <option>Dar es Salaam</option>
+                    <option>Dodoma</option>
+                    <option>Iringa</option>
+                    <option>Kigoma</option>
+                </select>
 
-<!-- JOIN CTA -->
-<div class="cta-section" id="join">
-  <div class="cta-inner">
-    <div class="section-label reveal" style="justify-content:center;">Jiunge Nasi</div>
-    <h2 class="reveal">Una Uzoefu.<br>Una <em style="color:var(--gold);font-style:italic;">Nguvu.</em><br>Una Nafasi.</h2>
-    <p class="reveal">Jiunge na UWAT leo na uendelee kuwa sehemu ya harakati ya kulinda urithi wetu wa asili.</p>
-    <a href="#" class="btn-primary reveal">Pakua Fomu ya Kujiunga</a>
-  </div>
-</div>
+                <button type="submit" class="join-btn" style="width: 100%; margin-top: 20px; padding: 15px;">Tuma Maombi</button>
+            </form>
+        </div>
+    </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="logo-text">🐘 UWAT</div>
-      <p>Umoja wa Wastaafu TANAPA (UWAT) — mkusanyiko wa hiari wa waliostaafu wa Tanzania National Parks, wakijua uhifadhi ni jukumu la maisha yote.</p>
-    </div>
-    <div class="footer-col">
-      <h5>Kurasa</h5>
-      <ul>
-        <li><a href="#about">Sisi ni Nani</a></li>
-        <li><a href="#programs">Shughuli Zetu</a></li>
-        <li><a href="#news">Habari & Matukio</a></li>
-        <li><a href="#events">Kalenda</a></li>
-        <li><a href="#library">Maktaba</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>Rasilimali</h5>
-      <ul>
-        <li><a href="#">Katiba ya UWAT</a></li>
-        <li><a href="#">Fomu ya Kujiunga</a></li>
-        <li><a href="#">Fomu ya Bima</a></li>
-        <li><a href="#">Ripoti za Mwaka</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>Wasiliana Nasi</h5>
-      <div class="contact-item">📍 Makao Makuu, Arusha</div>
-      <div class="contact-item">📞 +255 XXX XXX XXX</div>
-      <div class="contact-item">✉ info@uwat.or.tz</div>
-      <div class="contact-item">🌐 www.uwat.or.tz</div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 Umoja wa Wastaafu TANAPA (UWAT). Haki zote zimehifadhiwa. Ustaafu na Uhifadhi Endelevu 🌿</p>
-    <div class="social-links">
-      <a href="#">f</a>
-      <a href="#">𝕏</a>
-      <a href="#">▶</a>
-      <a href="#">📷</a>
-    </div>
-  </div>
-</footer>
+    <script>
+        // 1. Navigation Logic (Single Page Simulation)
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.remove('active'));
 
-<script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => io.observe(el));
+            // Show selected section
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.add('active');
 
-  // Nav active on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 150) current = sec.id;
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
-    });
-  });
-</script>
+            // Close mobile menu if open
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('mobile-active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // 2. Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('mobile-active');
+        }
+
+        // 3. Modal Logic
+        function toggleModal() {
+            const modal = document.getElementById('modalOverlay');
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            } else {
+                modal.style.display = 'flex';
+            }
+        }
+
+        // 4. News Filter Logic
+        function filterNews(category, btn) {
+            const cards = document.querySelectorAll('.news-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button styles
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Show/Hide cards
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 5. Download Simulation
+        function simulateDownload(docName) {
+            alert("Inatayarisha: Simulating secure download of " + docName + "...");
+            setTimeout(() => {
+                alert("Mafanikio: " + docName + " imepakuliwa kwenye kifaa chako.");
+            }, 1000);
+        }
+
+        // 6. Form Submission Simulation
+        function handleForm(event) {
+            event.preventDefault();
+            alert("Asante! Maombi yako ya kujiunga na UWAT yamepokelewa. Tutakuwasiliana hivi karibuni.");
+            toggleModal();
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            const modal = document.getElementById('modalOverlay');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
