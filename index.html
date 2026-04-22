@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UWAT | Modern Retiree Platform</title>
+    <title>UWAT | Legacy of Conservation</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Font: Inter (Deel uses similar clean sans-serif) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --brand-green: #1B4332; /* TANAPA identity */
+            --brand-green: #1B4332;
             --accent-mint: #40916C;
             --deel-dark: #111111;
             --deel-gray: #F9FAFB;
             --deel-border: #E5E7EB;
             --white: #ffffff;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            --radius-lg: 24px;
-            --radius-sm: 12px;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --radius-lg: 32px;
+            --radius-sm: 16px;
         }
 
         * {
@@ -31,18 +30,18 @@
         body {
             background-color: var(--white);
             color: var(--deel-dark);
-            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* --- DEEL STYLE NAVIGATION --- */
+        /* --- NAVIGATION --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--deel-border);
-            padding: 16px 5%;
+            padding: 16px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -50,19 +49,17 @@
         }
 
         .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: -1px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: 800;
+            font-size: 1.6rem;
+            letter-spacing: -1.5px;
             color: var(--brand-green);
+            cursor: pointer;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 32px;
+            gap: 40px;
         }
 
         .nav-links li a {
@@ -74,29 +71,13 @@
             transition: var(--transition);
         }
 
-        .nav-links li a:hover {
-            color: var(--accent-mint);
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 10px 20px;
-        }
+        .nav-links li a:hover { color: var(--accent-mint); }
 
         .btn-primary {
             background-color: var(--brand-green);
             color: white;
-            padding: 12px 24px;
-            border-radius: 100px; /* Pill style */
+            padding: 14px 28px;
+            border-radius: 100px;
             border: none;
             font-weight: 600;
             cursor: pointer;
@@ -104,60 +85,29 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(27, 67, 50, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(27, 67, 50, 0.2);
         }
 
-        /* --- SPA SECTIONS --- */
+        /* --- LAYOUT UTILITIES --- */
         section {
             display: none;
-            padding: 140px 10% 80px;
+            padding: 120px 8% 80px;
             min-height: 100vh;
         }
 
         section.active {
             display: block;
-            animation: sectionSlide 0.6s ease-out;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        @keyframes sectionSlide {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- HERO SECTION (Deel Style) --- */
-        #home {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .hero-badge {
-            background: var(--deel-gray);
-            padding: 8px 16px;
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--brand-green);
-            margin-bottom: 24px;
-            display: inline-block;
-        }
-
-        h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            letter-spacing: -3px;
-            margin-bottom: 24px;
-        }
-
-        .hero-subtext {
-            font-size: 1.25rem;
-            color: #666;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        /* --- BENTO BOX CARDS (News/Features) --- */
+        .container-xl { max-width: 1200px; margin: 0 auto; }
+        
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -169,84 +119,120 @@
             background: var(--deel-gray);
             border: 1px solid var(--deel-border);
             border-radius: var(--radius-lg);
-            padding: 32px;
-            transition: var(--transition);
-            cursor: pointer;
-            overflow: hidden;
+            padding: 40px;
             position: relative;
+            overflow: hidden;
+            transition: var(--transition);
         }
 
         .bento-card:hover {
-            background: var(--white);
             border-color: var(--brand-green);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-        }
-
-        .card-tag {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent-mint);
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        /* --- FILTERS --- */
-        .filter-container {
-            display: flex;
-            background: var(--deel-gray);
-            padding: 6px;
-            border-radius: 100px;
-            width: fit-content;
-            margin: 0 auto 40px;
-        }
-
-        .filter-btn {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 100px;
-            background: transparent;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .filter-btn.active {
             background: var(--white);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
         }
 
-        /* --- CALENDAR LIST --- */
-        .calendar-row {
+        /* --- MWANZO (HOME) --- */
+        .hero-title {
+            font-size: 5.5rem;
+            line-height: 0.95;
+            letter-spacing: -4px;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+
+        .stat-circle {
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--brand-green);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            padding: 24px;
-            border-bottom: 1px solid var(--deel-border);
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .wildlife-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0.9;
+        }
+
+        /* --- HABARI (NEWS & ABOUT) --- */
+        .history-card {
+            background: var(--brand-green);
+            color: var(--white);
+            grid-column: span 12;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .pill {
+            padding: 10px 24px;
+            border-radius: 100px;
+            border: 1px solid var(--deel-border);
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .pill.active {
+            background: var(--deel-dark);
+            color: white;
+            border-color: var(--deel-dark);
+        }
+
+        /* --- MAKTABA (LIBRARY) --- */
+        .lib-card {
+            background: white;
+            border: 1px solid var(--deel-border);
+            border-radius: var(--radius-sm);
+            padding: 0;
             transition: var(--transition);
         }
 
-        .calendar-row:hover {
+        .lib-thumb {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+
+        .lib-content { padding: 20px; }
+
+        /* --- KALENDA (CALENDAR) --- */
+        .event-row {
+            display: flex;
+            padding: 30px;
             background: var(--deel-gray);
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+            align-items: center;
+            transition: var(--transition);
         }
 
-        .date-box {
-            min-width: 80px;
-            font-weight: 700;
+        .event-row:hover {
+            background: var(--white);
+            border: 1px solid var(--brand-green);
         }
 
-        .status-pill {
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            background: #E1F5FE;
-            color: #01579B;
-            margin-left: auto;
-        }
-
-        .status-pill.next {
-            background: #FFF4E5;
-            color: #B76E00;
+        .event-date {
+            min-width: 120px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--brand-green);
         }
 
         /* --- MODAL --- */
@@ -254,154 +240,221 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(17, 17, 17, 0.4);
-            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: var(--white);
-            width: 90%;
-            max-width: 500px;
+            background: white;
+            padding: 50px;
             border-radius: var(--radius-lg);
-            padding: 40px;
-            position: relative;
+            width: 90%;
+            max-width: 550px;
         }
 
         input, select {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 12px;
             border: 1px solid var(--deel-border);
-            border-radius: var(--radius-sm);
-            margin-bottom: 16px;
-            font-size: 1rem;
+            background: var(--deel-gray);
         }
 
-        /* --- MOBILE MENU --- */
-        .hamburger { display: none; cursor: pointer; font-size: 1.5rem; }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8rem; }
+        @media (max-width: 992px) {
+            .hero-title { font-size: 3.5rem; letter-spacing: -2px; }
             .nav-links { display: none; }
-            .hamburger { display: block; }
-            .nav-links.mobile-active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: white;
-                padding: 40px;
-                border-bottom: 1px solid var(--deel-border);
-            }
+            .bento-card { grid-column: span 12 !important; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo" onclick="showSection('home')" style="cursor:pointer">
-            <i class="fas fa-leaf"></i> UWAT
-        </div>
-        <ul class="nav-links" id="navLinks">
+        <div class="logo" onclick="showSection('home')">UWAT</div>
+        <ul class="nav-links">
             <li><a onclick="showSection('home')">Mwanzo</a></li>
-            <li><a onclick="showSection('news')">Habari</a></li>
+            <li><a onclick="showSection('habari')">Habari</a></li>
             <li><a onclick="showSection('maktaba')">Maktaba</a></li>
             <li><a onclick="showSection('calendar')">Kalenda</a></li>
         </ul>
-        <div class="nav-actions">
-            <button class="btn-secondary">Ingia</button>
-            <button class="btn-primary" onclick="toggleModal()">Jiunge Sasa</button>
-            <i class="fas fa-bars hamburger" onclick="toggleMobileMenu()"></i>
-        </div>
+        <button class="btn-primary" onclick="toggleModal()">Jiunge Nasi</button>
     </nav>
 
-    <!-- HOME -->
+    <!-- MWANZO -->
     <section id="home" class="active">
-        <span class="hero-badge">Jumuia ya Wastaafu wa TANAPA</span>
-        <h1>Umoja wetu,<br>Urithi wa Taifa letu.</h1>
-        <p class="hero-subtext">Mfumo wa kisasa unaowaunganisha wastaafu wa Shirika la Hifadhi za Taifa Tanzania kwa ajili ya ustawi, uwekezaji, na kuendeleza uhifadhi.</p>
-        
-        <div class="bento-grid">
-            <div class="bento-card" style="grid-column: span 8;" onclick="showSection('news')">
-                <span class="card-tag">Habari Mpya</span>
-                <h3>Mkutano mkuu wa kanda ya Ziwa umeanza rasmi jijini Mwanza leo.</h3>
-            </div>
-            <div class="bento-card" style="grid-column: span 4;" onclick="showSection('calendar')">
-                <span class="card-tag">Kalenda</span>
-                <h3>Tukio lijalo: Semina ya Afya</h3>
+        <div class="container-xl">
+            <h1 class="hero-title">Tunza Urithi,<br>Enzi Utumishi.</h1>
+            <p style="font-size: 1.4rem; color: #555; max-width: 700px; margin-bottom: 50px;">
+                Umoja wa Wastaafu TANAPA (UWAT) ni jukwaa la kipekee linalowaunganisha wahifadhi waliostaafu kwa ajili ya maendeleo na ushauri wa kitaalamu.
+            </p>
+
+            <div class="bento-grid">
+                <div class="bento-card" style="grid-column: span 8; min-height: 400px;">
+                    <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1000" class="wildlife-img" alt="Elephant">
+                    <div style="position: relative; z-index: 2; color: white; padding-top: 200px;">
+                        <h2 style="font-size: 2.5rem;">Uhifadhi Ndio Damu Yetu</h2>
+                        <p>Hata baada ya kustaafu, mapenzi yetu kwa maliasili ya Tanzania hayafutiki.</p>
+                    </div>
+                </div>
+                
+                <div class="bento-card" style="grid-column: span 4; background: #FFF4E5;">
+                    <div class="stat-circle">22</div>
+                    <h3>Hifadhi za Taifa</h3>
+                    <p>Tunashirikiana na mtandao mpana wa hifadhi zote nchini.</p>
+                </div>
+
+                <div class="bento-card" style="grid-column: span 4; background: #E1F5FE;">
+                    <div class="stat-circle">500+</div>
+                    <h3>Wanachama</h3>
+                    <p>Wastaafu kutoka vitengo mbalimbali vya uhifadhi.</p>
+                </div>
+
+                <div class="bento-card" style="grid-column: span 8;">
+                    <div style="display: flex; gap: 30px; align-items: center;">
+                        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=400" 
+                             style="width: 200px; height: 200px; border-radius: 20px; object-fit: cover;">
+                        <div>
+                            <h2>Simba wa Nyika</h2>
+                            <p>Kama walinzi wa zamani, uzoefu wetu unasaidia kutoa miongozo kwa vizazi vipya vya askari hifadhi na viongozi.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- NEWS -->
-    <section id="news">
-        <h2 style="font-size: 3rem; text-align: center; margin-bottom: 40px; letter-spacing: -1.5px;">Habari na Blog</h2>
-        
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterNews('all', this)">Zote</button>
-            <button class="filter-btn" onclick="filterNews('matukio', this)">Matukio</button>
-            <button class="filter-btn" onclick="filterNews('blog', this)">Ushauri</button>
-        </div>
+    <!-- HABARI (ABOUT & NEWS) -->
+    <section id="habari">
+        <div class="container-xl">
+            <h2 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 40px;">Kuhusu UWAT</h2>
+            
+            <div class="bento-grid">
+                <div class="bento-card history-card">
+                    <div style="flex: 1;">
+                        <span style="text-transform: uppercase; font-weight: 700; opacity: 0.7;">Tangu 2021</span>
+                        <h2 style="font-size: 2.5rem; margin: 15px 0;">Historia na Madhumuni</h2>
+                        <p>UWAT ilianzishwa rasmi mwaka 2021 ili kutengeneza umoja wa wastaafu wote waliotumikia Shirika la Hifadhi za Taifa (TANAPA). Lengo kuu ni kudumisha undugu, kusaidiana wakati wa shida, na kutoa ushauri wa kitaalamu wa uhifadhi kwa serikali.</p>
+                    </div>
+                    <div style="flex: 1;">
+                        <img src="https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?auto=format&fit=crop&q=80&w=600" 
+                             style="width: 100%; border-radius: 20px;">
+                    </div>
+                </div>
 
-        <div class="bento-grid" id="newsGrid">
-            <div class="bento-card" style="grid-column: span 6;" data-category="matukio">
-                <span class="card-tag">Matukio</span>
-                <h3>Ziara ya Hifadhi ya Serengeti</h3>
-                <p style="color: #666; margin-top: 12px;">Wastaafu 40 washiriki zoezi la kuhamasisha utalii wa ndani...</p>
+                <div class="bento-card" style="grid-column: span 6;">
+                    <h3>Sekta ya Uwekezaji</h3>
+                    <p>Tunawasaidia wastaafu kuwekeza mafao yao kwenye miradi ya kitalii na kilimo cha kisasa.</p>
+                </div>
+                <div class="bento-card" style="grid-column: span 6;">
+                    <h3>Sekta ya Jamii</h3>
+                    <p>Bima ya afya na mifuko ya kusaidiana (Saccos) kwa ajili ya ustawi wa familia za wastaafu.</p>
+                </div>
             </div>
-            <div class="bento-card" style="grid-column: span 6;" data-category="blog">
-                <span class="card-tag">Blog</span>
-                <h3>Kilimo cha Kisasa baada ya Kustaafu</h3>
-                <p style="color: #666; margin-top: 12px;">Jifunze jinsi ya kutumia mafao yako kuwekeza kwenye kilimo cha umwagiliaji...</p>
+
+            <h2 style="font-size: 2.5rem; margin: 60px 0 30px;">Habari Mpya</h2>
+            <div class="filter-pills">
+                <div class="pill active" onclick="filterNews('all', this)">Zote</div>
+                <div class="pill" onclick="filterNews('matukio', this)">Matukio</div>
+                <div class="pill" onclick="filterNews('blog', this)">Blogu</div>
+            </div>
+
+            <div class="bento-grid" id="newsGrid">
+                <div class="bento-card" style="grid-column: span 4;" data-category="matukio">
+                    <span class="card-tag">Matukio</span>
+                    <h4>Mkutano Arusha</h4>
+                    <p>Wastaafu wajadili fursa za uwekezaji 2024.</p>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;" data-category="blog">
+                    <span class="card-tag">Blogu</span>
+                    <h4>Maisha ya Kustaafu</h4>
+                    <p>Jinsi ya kutunza afya ya akili baada ya kazi.</p>
+                </div>
+                <div class="bento-card" style="grid-column: span 4;" data-category="matukio">
+                    <span class="card-tag">Matukio</span>
+                    <h4>Ziara ya Manyara</h4>
+                    <p>Kumbukizi ya miaka 30 ya utumishi.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- MAKTABA -->
     <section id="maktaba">
-        <h2 style="font-size: 3rem; margin-bottom: 40px; letter-spacing: -1.5px;">Maktaba ya Nyaraka</h2>
-        <div class="bento-grid">
-            <div class="bento-card" style="grid-column: span 4;" onclick="simulateDownload('Katiba_UWAT.pdf')">
-                <i class="far fa-file-pdf" style="font-size: 2rem; color: var(--brand-green); margin-bottom: 20px;"></i>
-                <h3>Katiba ya UWAT</h3>
-                <p>Toleo lililofanyiwa marekebisho 2023.</p>
-            </div>
-            <div class="bento-card" style="grid-column: span 4;" onclick="simulateDownload('Fomu_Uanachama.pdf')">
-                <i class="far fa-file-alt" style="font-size: 2rem; color: var(--brand-green); margin-bottom: 20px;"></i>
-                <h3>Fomu ya Uanachama</h3>
-                <p>Pakua na ujaze fomu hii ili kujiunga.</p>
-            </div>
-            <div class="bento-card" style="grid-column: span 4;" onclick="simulateDownload('Ripoti_Fedha.pdf')">
-                <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--brand-green); margin-bottom: 20px;"></i>
-                <h3>Ripoti ya Mwaka</h3>
-                <p>Mapato na matumizi ya mwaka 2023.</p>
+        <div class="container-xl">
+            <h2 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 20px;">Maktaba ya Dijiti</h2>
+            <p style="margin-bottom: 40px; color: #666;">Nyaraka muhimu, fomu, na miongozo ya shirika.</p>
+
+            <div class="bento-grid">
+                <!-- Lib Card 1 -->
+                <div class="bento-card lib-card" style="grid-column: span 3;">
+                    <div class="lib-thumb" style="background-image: url('https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?auto=format&fit=crop&q=80&w=400');"></div>
+                    <div class="lib-content">
+                        <h4>Katiba ya UWAT</h4>
+                        <button class="btn-primary" style="padding: 8px 15px; font-size: 0.8rem; margin-top: 10px;" onclick="simulateDownload('Katiba')">Pakua</button>
+                    </div>
+                </div>
+                <!-- Lib Card 2 -->
+                <div class="bento-card lib-card" style="grid-column: span 3;">
+                    <div class="lib-thumb" style="background-image: url('https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?auto=format&fit=crop&q=80&w=400');"></div>
+                    <div class="lib-content">
+                        <h4>Fomu ya Mafao</h4>
+                        <button class="btn-primary" style="padding: 8px 15px; font-size: 0.8rem; margin-top: 10px;" onclick="simulateDownload('Fomu')">Pakua</button>
+                    </div>
+                </div>
+                <!-- Lib Card 3 -->
+                <div class="bento-card lib-card" style="grid-column: span 3;">
+                    <div class="lib-thumb" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=400');"></div>
+                    <div class="lib-content">
+                        <h4>Mwongozo Bima</h4>
+                        <button class="btn-primary" style="padding: 8px 15px; font-size: 0.8rem; margin-top: 10px;" onclick="simulateDownload('Bima')">Pakua</button>
+                    </div>
+                </div>
+                <!-- Lib Card 4 -->
+                <div class="bento-card lib-card" style="grid-column: span 3;">
+                    <div class="lib-thumb" style="background-image: url('https://images.unsplash.com/photo-1503431128947-61014bf80fb2?auto=format&fit=crop&q=80&w=400');"></div>
+                    <div class="lib-content">
+                        <h4>Ripoti ya Mwaka</h4>
+                        <button class="btn-primary" style="padding: 8px 15px; font-size: 0.8rem; margin-top: 10px;" onclick="simulateDownload('Ripoti')">Pakua</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CALENDAR -->
+    <!-- KALENDA -->
     <section id="calendar">
-        <h2 style="font-size: 3rem; margin-bottom: 40px; letter-spacing: -1.5px;">Ratiba ya Shughuli</h2>
-        <div style="background: white; border: 1px solid var(--deel-border); border-radius: var(--radius-lg); overflow: hidden;">
-            <div class="calendar-row">
-                <div class="date-box">15 MEI</div>
-                <div>
-                    <div style="font-weight: 600;">Semina ya Mafao (PSSSF & NSSF)</div>
-                    <div style="font-size: 0.85rem; color: #666;">Dar es Salaam, Ukumbi wa Arusha</div>
+        <div class="container-xl">
+            <h2 style="font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 50px;">Ratiba na Matukio</h2>
+            
+            <div class="event-row">
+                <div class="event-date">12 <br><span style="font-size: 1rem; color: #999;">JULAI</span></div>
+                <div style="flex: 1;">
+                    <h3 style="margin-bottom: 5px;">Mkutano Mkuu wa Mwaka</h3>
+                    <p style="color: #666;"><i class="fas fa-map-marker-alt"></i> Naura Spring, Arusha</p>
                 </div>
-                <div class="status-pill next">IJAYO</div>
+                <button class="btn-primary" onclick="alert('Imeongezwa kwenye kalenda yako!')">Nikumbushe</button>
             </div>
-            <div class="calendar-row">
-                <div class="date-box">20 JUN</div>
-                <div>
-                    <div style="font-weight: 600;">Mkutano wa Kamati ya Utendaji</div>
-                    <div style="font-size: 0.85rem; color: #666;">Online - Zoom</div>
+
+            <div class="event-row">
+                <div class="event-date">05 <br><span style="font-size: 1rem; color: #999;">AGOSTI</span></div>
+                <div style="flex: 1;">
+                    <h3 style="margin-bottom: 5px;">Zoezi la Uhakiki wa Wanachama</h3>
+                    <p style="color: #666;"><i class="fas fa-map-marker-alt"></i> Ofisi za Kanda zote</p>
                 </div>
-                <div class="status-pill">KIMEPANGWA</div>
+                <button class="btn-primary">Maelezo</button>
+            </div>
+
+            <div class="event-row" style="opacity: 0.7;">
+                <div class="event-date">10 <br><span style="font-size: 1rem; color: #999;">SEPT</span></div>
+                <div style="flex: 1;">
+                    <h3 style="margin-bottom: 5px;">Semina ya Uwekezaji (VICOBA)</h3>
+                    <p style="color: #666;"><i class="fas fa-laptop"></i> Online (Zoom)</p>
+                </div>
+                <button class="btn-primary">Jiunge</button>
             </div>
         </div>
     </section>
@@ -409,36 +462,32 @@
     <!-- JOIN MODAL -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
-            <h2 style="letter-spacing: -1px; margin-bottom: 10px;">Karibu UWAT</h2>
-            <p style="color: #666; margin-bottom: 24px;">Jaza taarifa zako hapa chini ili kuanza mchakato wa uanachama.</p>
+            <h2 style="margin-bottom: 20px; letter-spacing: -1px;">Jiunge na UWAT</h2>
             <form onsubmit="handleForm(event)">
                 <input type="text" placeholder="Jina Kamili" required>
-                <input type="email" placeholder="Barua Pepe">
+                <input type="text" placeholder="Namba ya Hundi (Check Number)" required>
                 <select>
-                    <option>Hifadhi Uliyotoka</option>
+                    <option>Hifadhi ya Mwisho Kutumikia</option>
                     <option>Serengeti</option>
-                    <option>Ruaha</option>
-                    <option>Ngorongoro</option>
-                    <option>Nyingine</option>
+                    <option>Kilimanjaro</option>
+                    <option>Mikumi</option>
+                    <option>Makao Makuu</option>
                 </select>
-                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Tuma Maombi</button>
-                <button type="button" class="btn-secondary" style="width: 100%; margin-top: 10px;" onclick="toggleModal()">Ghairi</button>
+                <button type="submit" class="btn-primary" style="width: 100%;">Tuma Maombi</button>
+                <button type="button" onclick="toggleModal()" style="width: 100%; background: none; border: none; margin-top: 15px; cursor: pointer; color: #666;">Funga</button>
             </form>
         </div>
     </div>
 
     <script>
-        // SPA Logic
         function showSection(id) {
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            document.getElementById('navLinks').classList.remove('mobile-active');
             window.scrollTo(0,0);
         }
 
-        // News Filtering
         function filterNews(cat, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
             btn.classList.add('active');
             document.querySelectorAll('[data-category]').forEach(card => {
                 if (cat === 'all' || card.dataset.category === cat) {
@@ -449,25 +498,19 @@
             });
         }
 
-        // Modal
         function toggleModal() {
             const m = document.getElementById('modalOverlay');
             m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // Simulations
-        function simulateDownload(file) {
-            alert("Pakua Inaanza: " + file + "\n\nUsalama: Nyaraka hii imehakikiwa na UWAT.");
-        }
-
         function handleForm(e) {
             e.preventDefault();
-            alert("Asante! Ombi lako limetumwa kwa Katibu wa UWAT kwa uhakiki.");
+            alert("Maombi yako yamepokelewa! Kamati itayapitia na kukujibu ndani ya siku 7.");
             toggleModal();
         }
 
-        function toggleMobileMenu() {
-            document.getElementById('navLinks').classList.toggle('mobile-active');
+        function simulateDownload(name) {
+            alert("Simulating secure download of: " + name + "_Document.pdf");
         }
     </script>
 </body>
