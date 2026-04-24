@@ -1890,120 +1890,223 @@
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="handleModalClick(event)">
     <div class="modal-box">
-        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
-        <div class="modal-eyebrow">Karibu UWAT</div>
-        <h2 class="modal-h">Fomu ya Maombi ya Kujiunga</h2>
-
-        <div class="form-section">
-            <label class="section-title">1. Majina Matatu ya Muombaji</label>
-            <div class="form-row three-col">
-                <div class="form-group">
-                    <input type="text" placeholder="Jina la Kwanza" id="fFirstName">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Jina la Kati" id="fMiddleName">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Jina la Ukoo" id="fLastName">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Jinsia</label>
-                <select id="fGender">
-                    <option value="">— Chagua Jinsia —</option>
-                    <option value="ME">Mwanaume (ME)</option>
-                    <option value="KE">Mwanamke (KE)</option>
-                </select>
-            </div>
+        <div class="modal-header">
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-eyebrow">Karibu UWAT</div>
+            <h2 class="modal-h">Jiunge na Familia Yetu</h2>
         </div>
 
-        <div class="form-section">
-            <label class="section-title">2. Taarifa za Mawasiliano</label>
-            <div class="form-row three-col">
-                <div class="form-group">
-                    <input type="tel" placeholder="Namba ya Simu" id="fPhone">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Makazi" id="fResidence">
-                </div>
-                <div class="form-group">
-                    <input type="email" placeholder="Barua Pepe (Email)" id="fEmail">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <label class="section-title">3. Anuani ya Kudumu</label>
-            <div class="form-row three-col">
-                <div class="form-group">
-                    <input type="text" placeholder="Namba ya Nyumba" id="fHouseNo">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Kijiji/Mtaa/Wilaya" id="fDistrict">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Mkoa" id="fRegion">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <label class="section-title">4. Maelezo ya Mwenza</label>
-            <div class="form-row three-col">
-                <input type="text" placeholder="Jina la Mwenza" id="fSpouseName">
-                <input type="text" placeholder="Anapoishi" id="fSpouseLive">
-                <input type="tel" placeholder="Namba ya Simu" id="fSpousePhone">
-            </div>
+        <div class="modal-body">
             
-            <label class="section-title" style="margin-top:15px">5. Maelezo ya Mrithi</label>
-            <div class="form-row three-col">
-                <input type="text" placeholder="Jina la Mrithi" id="fHeirName">
-                <input type="text" placeholder="Anapoishi" id="fHeirLive">
-                <input type="tel" placeholder="Namba ya Simu" id="fHeirPhone">
+            <div class="form-card">
+                <label class="section-label">1. Majina Matatu ya Muombaji</label>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Jina la Kwanza</label>
+                        <input type="text" placeholder="John" id="fFirstName">
+                    </div>
+                    <div class="form-group">
+                        <label>Jina la Kati</label>
+                        <input type="text" placeholder="Mwamba" id="fMiddleName">
+                    </div>
+                    <div class="form-group">
+                        <label>Jina la Ukoo</label>
+                        <input type="text" placeholder="Kipanya" id="fLastName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Jinsia</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="gender" value="ME"> ME</label>
+                        <label class="radio-btn"><input type="radio" name="gender" value="KE"> KE</label>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-section">
-            <label class="section-title">6. Hifadhi/Sehemu Aliyostaafu</label>
-            <div class="form-row">
-                <select id="fPark">
-                    <option value="">— Chagua Hifadhi —</option>
-                    <option>Serengeti</option>
-                    <option>Kilimanjaro</option>
-                    <option>Mikumi</option>
-                    <option>Ruaha</option>
-                    <option>Ngorongoro</option>
-                    <option>Makao Makuu</option>
-                    <option>Nyingine...</option>
-                </select>
-                <input type="date" id="fRetireDate" title="Tarehe ya Kustaafu">
+            <div class="form-card">
+                <label class="section-label">2. Taarifa za Mawasiliano</label>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Namba ya Simu</label>
+                        <input type="tel" placeholder="+255..." id="fPhone">
+                    </div>
+                    <div class="form-group">
+                        <label>Makazi</label>
+                        <input type="text" placeholder="Dar es Salaam" id="fResidence">
+                    </div>
+                    <div class="form-group">
+                        <label>Barua Pepe</label>
+                        <input type="email" placeholder="email@mfano.com" id="fEmail">
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-section declaration-box">
-            <p><strong>7. Taratibu za Umoja:</strong> Nimekubali kufuata Katiba na kulipa Kiingilio (Tsh 20,000) na Ada ya Mwaka (Tsh 120,000).</p>
-            <hr>
-            <p><strong>8. Ahadi:</strong> Mimi, <input type="text" placeholder="Jina Kamili" class="inline-input" id="fPromiseName">, ninaelewa na kukubali sheria na Kanuni za UWAT.</p>
-            <div class="form-group" style="margin-top:10px">
-                <label><input type="checkbox" id="fAccept"> Naahidi kuzifuata na kuzitekeleza ipasavyo.</label>
+            <div class="form-card">
+                <label class="section-label">3. Anuani ya Kudumu</label>
+                <div class="grid-3">
+                    <div class="form-group"><label>Namba ya Nyumba</label><input type="text" id="fHouseNo"></div>
+                    <div class="form-group"><label>Kijiji/Mtaa/Wilaya</label><input type="text" id="fDistrict"></div>
+                    <div class="form-group"><label>Mkoa</label><input type="text" id="fRegion"></div>
+                </div>
             </div>
-        </div>
 
-        <button class="btn-submit" onclick="submitForm()">Tuma Maombi <i class="fas fa-arrow-right"></i></button>
+            <div class="form-card">
+                <label class="section-label">4. Maelezo ya Mwenza</label>
+                <div class="grid-3">
+                    <input type="text" placeholder="Jina la Mwenza" id="fSpouseName">
+                    <input type="text" placeholder="Anapoishi" id="fSpouseLive">
+                    <input type="tel" placeholder="Simu ya Mwenza" id="fSpousePhone">
+                </div>
+                <label class="section-label" style="margin-top:20px">5. Maelezo ya Mrithi</label>
+                <div class="grid-3">
+                    <input type="text" placeholder="Jina la Mrithi" id="fHeirName">
+                    <input type="text" placeholder="Anapoishi" id="fHeirLive">
+                    <input type="tel" placeholder="Simu ya Mrithi" id="fHeirPhone">
+                </div>
+            </div>
+
+            <div class="form-card">
+                <label class="section-label">6. Historia ya Kustaafu</label>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Hifadhi ya Mwisho</label>
+                        <select id="fPark">
+                            <option value="">— Chagua Hifadhi —</option>
+                            <option>Serengeti</option>
+                            <option>Kilimanjaro</option>
+                            <option>Ngorongoro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tarehe/Mwaka wa Kustaafu</label>
+                        <input type="date" id="fRetireDate">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-card highlight">
+                <label class="section-label">7 & 8. Ahadi na Makubaliano</label>
+                <p class="terms-text">
+                    Ninakubali kufuata Katiba ya UWAT na kulipa Kiingilio cha <b>Tsh 20,000</b> pamoja na Ada ya mwaka <b>Tsh 120,000</b>.
+                </p>
+                <div class="form-group">
+                    <label>Saini ya Muombaji (Weka Jina Kamili)</label>
+                    <input type="text" placeholder="Kuthibitisha makubaliano..." id="fSignature">
+                </div>
+            </div>
+
+        </div> <div class="modal-footer">
+            <button class="btn-submit" onclick="submitForm()">Tuma Maombi <i class="fas fa-paper-plane"></i></button>
+        </div>
     </div>
 </div>
 
 <style>
-    /* Additional styles to support the layout */
-    .form-section { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-    .section-title { font-weight: bold; display: block; margin-bottom: 8px; color: #2c3e50; font-size: 0.9rem; }
-    .form-row { display: grid; gap: 10px; margin-bottom: 10px; }
-    .three-col { grid-template-columns: 1fr 1fr 1fr; }
-    .inline-input { border: none; border-bottom: 1px dashed #333; width: auto; min-width: 200px; padding: 0 5px; }
-    .declaration-box { background: #f9f9f9; padding: 15px; border-radius: 8px; font-size: 0.85rem; }
+    /* UI/UX Scaffolding */
+    :root {
+        --primary: #2e7d32;
+        --bg-light: #f4f7f6;
+        --text-dark: #333;
+        --border-color: #ddd;
+    }
+
+    .modal-box {
+        max-width: 700px;
+        width: 90%;
+        max-height: 85vh; /* Prevents modal from leaving screen */
+        display: flex;
+        flex-direction: column; /* Vital for fixed header/footer */
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .modal-header {
+        padding: 20px 30px;
+        background: white;
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+    }
+
+    /* THE SCROLLING OPTION */
+    .modal-body {
+        padding: 20px 30px;
+        overflow-y: auto; /* Enables vertical scroll */
+        flex-grow: 1;
+        background: var(--bg-light);
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: var(--primary) transparent;
+    }
+
+    /* Custom scrollbar for Chrome/Safari */
+    .modal-body::-webkit-scrollbar { width: 6px; }
+    .modal-body::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+    .modal-footer {
+        padding: 20px 30px;
+        border-top: 1px solid var(--border-color);
+        background: white;
+        text-align: right;
+    }
+
+    /* Form Layouts */
+    .form-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #e0e0e0;
+    }
+
+    .form-card.highlight { border-left: 5px solid var(--primary); }
+
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+    .section-label {
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+        display: block;
+        letter-spacing: 1px;
+    }
+
+    .form-group label { font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; display: block; }
     
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+
+    input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1); }
+
+    .btn-submit {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3); }
+
+    /* Radio Buttons Style */
+    .radio-group { display: flex; gap: 20px; margin-top: 5px; }
+    .radio-btn { font-size: 0.9rem; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+
     @media (max-width: 600px) {
-        .three-col { grid-template-columns: 1fr; }
+        .grid-3, .grid-2 { grid-template-columns: 1fr; }
+        .modal-box { width: 95%; max-height: 95vh; }
     }
 </style>
 
