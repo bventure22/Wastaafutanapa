@@ -1996,7 +1996,9 @@
             </div>
 
         </div> <div class="modal-footer">
-            <button class="btn-submit" onclick="submitForm()">Tuma Maombi <i class="fas fa-paper-plane"></i></button>
+           <button class="btn-submit" id="submitBtn" onclick="submitForm()">
+    <span id="btnText">Tuma Maombi</span> <i class="fas fa-paper-plane"></i>
+</button>
         </div>
     </div>
 </div>
@@ -2243,6 +2245,50 @@
         t.classList.add('show');
         setTimeout(() => t.classList.remove('show'), 4000);
     }
+    function submitForm() {
+    const btn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const modalBody = document.querySelector('.modal-body');
+    const modalFooter = document.querySelector('.modal-footer');
+
+    // 1. Basic Validation (Optional check)
+    const name = document.getElementById('fFirstName').value;
+    if (!name) {
+        alert("Tafadhali jaza jina lako.");
+        return;
+    }
+
+    // 2. Change UI to 'Loading' State
+    btn.disabled = true;
+    btn.style.opacity = "0.7";
+    btnText.innerText = "Inatuma...";
+
+    // 3. Simulate an API Call (Using setTimeout)
+    setTimeout(() => {
+        // Here is where you would usually use fetch() to send data to your database
+        
+        // 4. Transform the Modal into a Success State
+        modalBody.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px;">
+                <div style="font-size: 50px; color: #2e7d32; margin-bottom: 20px;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 style="color: #333;">Ombi Limetumwa!</h2>
+                <p style="color: #666; line-height: 1.6;">
+                    Asante <strong>${name}</strong>, taarifa zako zimepokelewa kikamilifu. 
+                    Tutawasiliana nawe hivi karibuni kupitia namba yako ya simu.
+                </p>
+                <button onclick="closeModal()" style="margin-top: 20px; background: none; border: 1px solid #ccc; padding: 8px 20px; border-radius: 5px; cursor: pointer;">
+                    Funga Dirisha
+                </button>
+            </div>
+        `;
+
+        // Hide the footer since the action is complete
+        modalFooter.style.display = "none";
+
+    }, 2000); // 2-second delay to simulate "work"
+}
 </script>
 </body>
 </html>
