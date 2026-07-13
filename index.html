@@ -4,158 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UWAT | Umoja wa Wastaafu TANAPA - Tunza Urithi, Enzi Utumishi</title>
-    <meta name="description" content="Umoja wa Wastaafu wa Shirika la Hifadhi za Taifa (TANAPA). Tunawaunganisha wahifadhi waliostaafu na kuendeleza urithi wa maliasili Tanzania.">
     
-    <!-- Typography: Cormorant for Headings, DM Sans for Body -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
 
     <style>
         /* 
         ========================================
-        1. DESIGN TOKENS & SYSTEM RESET
+        1. THEME DESIGN & VARIABLES
         ========================================
         */
         :root {
-            --forest: #1a3a2a;         /* Deep Forest Green */
+            --forest: #1a3a2a;
             --forest-light: #2d5a3d;
-            --gold: #c9922a;           /* Premium Gold Accent */
+            --gold: #c9922a;
             --gold-hover: #e8b96a;
-            --cream: #f5f0e8;          /* Soft Cream Background */
-            --stone: #e8e0d0;          /* UI Borders */
+            --cream: #f5f0e8;
             --white: #ffffff;
             --text-main: #1c1c1c;
             --text-muted: #6b6b5a;
-            
-            --transition-premium: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
-            --shadow-bold: 0 20px 40px rgba(0,0,0,0.1);
-            
-            --container-width: 1200px;
             --header-h: 80px;
+            --transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'DM Sans', sans-serif; 
+            background: var(--white); 
             color: var(--text-main);
-            background-color: var(--white);
-            line-height: 1.7;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, .premium-font {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 700;
-        }
-
-        ul { list-style: none; }
-        a { text-decoration: none; color: inherit; transition: var(--transition-premium); }
-        img { max-width: 100%; display: block; }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--cream); }
-        ::-webkit-scrollbar-thumb { background: var(--forest); border-radius: 10px; }
-
         /* 
         ========================================
-        2. REUSABLE COMPONENTS
+        2. LOADING ANIMATION
         ========================================
         */
-        .container {
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(201, 146, 42, 0.15);
-            color: var(--gold);
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            padding: 8px 20px;
-            border-radius: 50px;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(201, 146, 42, 0.3);
-        }
-
-        .title-main {
-            font-size: 3.5rem;
-            color: var(--forest);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-
-        .title-sub {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--forest);
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            padding: 1rem 2.5rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition-premium);
-            font-size: 0.95rem;
-            border: none;
-            gap: 12px;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s;
         }
 
-        .btn-gold {
-            background-color: var(--gold);
-            color: var(--white);
-            box-shadow: 0 10px 20px rgba(201, 146, 42, 0.3);
+        .loader-logo {
+            width: 120px;
+            animation: pulse 2s infinite ease-in-out;
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
         }
 
-        .btn-gold:hover {
-            background-color: var(--gold-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(201, 146, 42, 0.4);
+        .loader-line {
+            width: 200px;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-outline {
-            border: 2px solid var(--white);
-            color: var(--white);
-            background: transparent;
+        .loader-line::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            animation: load 1.5s infinite;
         }
 
-        .btn-outline:hover {
-            background: var(--white);
-            color: var(--forest);
-        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        @keyframes load { 0% { left: -100%; } 100% { left: 100%; } }
 
         /* 
         ========================================
-        3. HEADER & NAVIGATION
+        3. HEADER & MOBILE NAV
         ========================================
         */
         header {
@@ -163,966 +94,580 @@
             width: 100%;
             position: fixed;
             top: 0;
-            left: 0;
             z-index: 1000;
             background: rgba(26, 58, 42, 0.95);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
             border-bottom: 1px solid rgba(201, 146, 42, 0.2);
-            transition: var(--transition-premium);
+            transition: var(--transition);
         }
 
-        header.scrolled {
-            height: 70px;
-            background: var(--forest);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-
-        .nav-flex {
-            height: 100%;
+        .nav-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-        }
-
-        .logo-wrap {
-            display: flex;
             align-items: center;
-            gap: 15px;
         }
 
-        .logo-img {
-            height: 50px;
-            width: 50px;
-            object-fit: contain;
-            background: var(--white);
-            border-radius: 8px;
-            padding: 2px;
-        }
+        .logo-box { display: flex; align-items: center; gap: 12px; }
+        .logo-box img { height: 50px; background: white; padding: 2px; border-radius: 5px; }
+        .logo-box div h1 { font-family: 'Cormorant Garamond', serif; color: white; font-size: 1.5rem; line-height: 1; }
+        .logo-box div span { color: var(--gold); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        .logo-text {
-            color: var(--white);
-            line-height: 1;
-        }
+        .desktop-links { display: flex; gap: 2rem; align-items: center; }
+        .desktop-links a { color: white; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: 0.3s; }
+        .desktop-links a:hover { color: var(--gold); }
 
-        .logo-text h1 {
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            margin: 0;
-        }
-
-        .logo-text span {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            color: var(--gold);
-            letter-spacing: 1px;
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .desktop-nav {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 0.9rem;
-            font-weight: 500;
-            position: relative;
-        }
-
-        .nav-link:hover {
-            color: var(--gold);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
+        .btn-register {
             background: var(--gold);
-            transition: width 0.3s ease;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            color: white !important;
         }
 
-        .nav-link:hover::after {
-            width: 100%;
+        .burger { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
+        .burger span { width: 25px; height: 3px; background: white; transition: 0.3s; }
+
+        @media (max-width: 992px) {
+            .desktop-links { display: none; }
+            .burger { display: flex; }
         }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: var(--header-h);
+            left: 0;
+            width: 100%;
+            background: var(--forest);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transform: translateY(-150%);
+            transition: 0.5s ease-in-out;
+            z-index: 999;
+        }
+        .mobile-menu.active { transform: translateY(0); }
+        .mobile-menu a { color: white; font-size: 1.2rem; text-decoration: none; text-align: center; }
 
         /* 
         ========================================
-        4. HERO SECTION
+        4. HERO SLIDER SECTION
         ========================================
         */
         .hero {
-            position: relative;
             height: 100vh;
-            min-height: 800px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
             display: flex;
             align-items: center;
-            background: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=2000') no-repeat center center/cover;
-            color: var(--white);
-            padding-top: var(--header-h);
+            color: white;
         }
 
-        .hero::before {
+        .slider-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .slide.active { opacity: 1; }
+
+        .hero::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(160deg, rgba(14, 35, 24, 0.95) 0%, rgba(26, 58, 42, 0.6) 100%);
+            background: linear-gradient(to right, rgba(14,35,24,0.9), rgba(14,35,24,0.4));
+            z-index: 2;
         }
 
-        .hero-content {
+        .hero-text {
             position: relative;
-            z-index: 5;
-            max-width: 850px;
+            z-index: 3;
+            width: 90%;
+            max-width: 800px;
+            margin-left: 5%;
         }
 
-        .hero-content h1 {
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            margin-bottom: 1.5rem;
-            line-height: 1;
-        }
-
-        .hero-content h1 em {
-            color: var(--gold);
-            font-style: italic;
-        }
-
-        .hero-content p {
-            font-size: 1.25rem;
-            margin-bottom: 3rem;
-            color: rgba(255,255,255,0.8);
-            max-width: 600px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
+        .hero-text h2 { font-size: clamp(2.5rem, 8vw, 5rem); font-family: 'Cormorant Garamond', serif; line-height: 1.1; margin-bottom: 20px; }
+        .hero-text h2 em { color: var(--gold); font-style: italic; }
+        .hero-text p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 30px; max-width: 600px; }
 
         /* 
         ========================================
-        5. METRICS (3 COLUMNS - Removed Countries)
+        5. LEADERSHIP (Viongozi Wetu) REDESIGN
         ========================================
         */
-        .metrics-bar {
-            background: var(--white);
-            padding: 60px 0;
-            margin-top: -100px;
-            position: relative;
-            z-index: 10;
-            border-radius: 15px;
-            box-shadow: var(--shadow-bold);
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .metric-item {
-            text-align: center;
-            border-right: 1px solid var(--stone);
-        }
-
-        .metric-item:last-child {
-            border-right: none;
-        }
-
-        .metric-val {
-            display: block;
-            font-size: 3.5rem;
-            color: var(--forest);
-            font-weight: 700;
-            font-family: 'Cormorant Garamond', serif;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-label {
-            color: var(--gold);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-        }
-
-        /* 
-        ========================================
-        6. ABOUT & HISTORY SECTION
-        ========================================
-        */
-        .about-section {
-            padding: 120px 0;
+        .leaders-section {
+            padding: 100px 0;
             background: var(--cream);
         }
 
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .about-image-stack {
+        .unique-title {
+            text-align: center;
+            margin-bottom: 80px;
             position: relative;
         }
 
-        .main-img {
-            border-radius: 15px;
-            box-shadow: var(--shadow-bold);
-            border: 5px solid var(--white);
-        }
-
-        .about-text h2 {
-            font-size: 3rem;
-            color: var(--forest);
-            margin-bottom: 2rem;
-        }
-
-        .history-block {
-            background: var(--white);
-            padding: 30px;
-            border-left: 4px solid var(--gold);
-            border-radius: 0 10px 10px 0;
-            margin-top: 2rem;
-            box-shadow: var(--shadow-soft);
-        }
-
-        /* 
-        ========================================
-        7. PROGRAMS MATRIX (Alternating)
-        ========================================
-        */
-        .matrix-section {
-            padding: 120px 0;
-        }
-
-        .matrix-row {
-            display: flex;
-            align-items: center;
-            gap: 100px;
-            margin-bottom: 120px;
-        }
-
-        .matrix-row:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .matrix-visual {
-            flex: 1;
-            border-radius: 20px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-            box-shadow: var(--shadow-bold);
-        }
-
-        .matrix-visual img {
+        .unique-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            color: rgba(26, 58, 42, 0.05);
+            text-transform: uppercase;
+            position: absolute;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition-premium);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
         }
 
-        .matrix-row:hover .matrix-visual img {
-            transform: scale(1.05);
-        }
-
-        .matrix-info {
-            flex: 1;
-        }
-
-        .matrix-info h3 {
-            font-size: 2.5rem;
+        .unique-title .front-title {
+            position: relative;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
             color: var(--forest);
-            margin-bottom: 1.5rem;
+            z-index: 2;
         }
 
-        .feature-list {
-            margin-top: 2rem;
+        .unique-title .front-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            margin: 10px auto;
         }
 
-        .feature-point {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
 
-        .feature-point svg {
-            color: var(--gold);
-            flex-shrink: 0;
-        }
-
-        /* 
-        ========================================
-        8. LEADERSHIP SECTION
-        ========================================
-        */
-        .leadership-section {
-            padding: 120px 0;
-            background-color: var(--forest);
-            color: var(--white);
+        .leader-category-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--forest);
+            margin-bottom: 40px;
+            border-left: 5px solid var(--gold);
+            padding-left: 20px;
         }
 
         .leader-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 30px;
+            margin-bottom: 80px;
         }
 
+        /* Leader Card Animation */
         .leader-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
+            background: white;
+            border-radius: 20px;
             overflow: hidden;
-            text-align: center;
-            transition: var(--transition-premium);
-            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
         }
 
         .leader-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255,255,255,0.1);
-            border-color: var(--gold);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
-        .leader-img {
+        .leader-img-box {
             width: 100%;
             aspect-ratio: 1/1;
-            object-fit: cover;
-            border-bottom: 2px solid var(--gold);
-        }
-
-        .leader-meta {
-            padding: 20px;
-        }
-
-        .leader-meta h4 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .leader-meta span {
-            color: var(--gold);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        /* 
-        ========================================
-        9. REGISTRATION FORM
-        ========================================
-        */
-        .registration-section {
-            padding: 120px 0;
-            background: var(--cream);
-        }
-
-        .form-container {
-            background: var(--white);
-            max-width: 900px;
-            margin: 0 auto;
-            border-radius: 20px;
-            box-shadow: var(--shadow-bold);
+            background: #eee;
             overflow: hidden;
         }
 
-        .form-header-box {
-            background: var(--forest);
-            color: var(--white);
-            padding: 40px;
-            text-align: center;
+        .leader-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
         }
 
-        .form-body {
-            padding: 50px;
+        .leader-card:hover .leader-img-box img {
+            transform: scale(1.1);
+        }
+
+        .leader-info {
+            padding: 25px;
+            text-align: center;
+            background: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .leader-info h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--forest);
+            margin-bottom: 5px;
+        }
+
+        .leader-info p {
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .leader-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: var(--forest);
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .leader-card:hover::before { height: 100%; }
+        .leader-card:hover h4 { color: white; }
+        .leader-card:hover p { color: var(--gold-hover); }
+
+        /* 
+        ========================================
+        6. FORM & FOOTER
+        ========================================
+        */
+        .register-section { padding: 100px 0; background: var(--white); }
+        .form-wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--cream);
+            padding: 3rem;
+            border-radius: 30px;
         }
 
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-group.full {
-            grid-column: span 2;
-        }
-
-        label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--forest);
-            text-transform: uppercase;
-        }
-
-        input, select, textarea {
-            padding: 12px 20px;
-            border: 1.5px solid var(--stone);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: var(--transition-premium);
-        }
-
-        input:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 4px rgba(201, 146, 42, 0.1);
-        }
-
-        .form-subtitle {
-            grid-column: span 2;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--cream);
-            margin: 20px 0 10px;
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        /* 
-        ========================================
-        10. FOOTER
-        ========================================
-        */
-        footer {
-            background: #0e2318;
-            color: var(--white);
-            padding: 100px 0 40px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
-            gap: 60px;
-            margin-bottom: 80px;
-        }
-
-        .footer-logo h1 { font-size: 2rem; margin-bottom: 1rem; }
-        .footer-logo p { color: rgba(255,255,255,0.6); line-height: 1.8; padding-right: 40px; }
-
-        .footer-col h5 {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            color: var(--gold);
-        }
-
-        .footer-links li { margin-bottom: 12px; }
-        .footer-links a { color: rgba(255,255,255,0.7); }
-        .footer-links a:hover { color: var(--gold); padding-left: 8px; }
-
-        .contact-info { display: flex; flex-direction: column; gap: 20px; }
-        .contact-item { display: flex; gap: 15px; color: rgba(255,255,255,0.7); }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.4);
-        }
-
-        /* 
-        ========================================
-        11. ANIMATIONS
-        ========================================
-        */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 
-        ========================================
-        12. RESPONSIVENESS
-        ========================================
-        */
-        @media (max-width: 1024px) {
-            .about-grid, .matrix-row { grid-template-columns: 1fr; flex-direction: column; gap: 50px; }
-            .matrix-row:nth-child(even) { flex-direction: column; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .title-main { font-size: 2.5rem; }
+            gap: 20px;
         }
 
         @media (max-width: 768px) {
-            .desktop-nav { display: none; }
-            .metrics-grid { grid-template-columns: 1fr; gap: 30px; }
-            .metric-item { border-right: none; border-bottom: 1px solid var(--stone); padding-bottom: 20px; }
-            .hero-content h1 { font-size: 3rem; }
             .form-grid { grid-template-columns: 1fr; }
-            .form-group.full { grid-column: span 1; }
-            .form-subtitle { grid-column: span 1; }
+            .form-wrap { padding: 1.5rem; }
+        }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: var(--forest); }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--stone);
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        footer {
+            background: var(--forest);
+            color: white;
+            padding: 80px 0 30px;
+            text-align: center;
+        }
+
+        .footer-logo { margin-bottom: 30px; }
+        .footer-logo img { height: 60px; background: white; padding: 5px; border-radius: 10px; }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s all ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <!-- 
-    ========================================
-    NAVIGATION
-    ========================================
-    -->
-    <header id="main-header">
-        <div class="container nav-flex">
-            <a href="#" class="logo-wrap">
-                <img src="https://bventure22.github.io/Wastaafutanapa/images/uwat logo.png" alt="UWAT Logo" class="logo-img">
-                <div class="logo-text">
-                    <h1 class="premium-font">UWAT</h1>
+    <!-- Loading Animation -->
+    <div id="loader">
+        <img src="https://bventure22.github.io/Wastaafutanapa/images/uwat logo.png" class="loader-logo" alt="Logo">
+        <div class="loader-line"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header id="header">
+        <div class="nav-container">
+            <a href="#" class="logo-box">
+                <img src="https://bventure22.github.io/Wastaafutanapa/images/uwat logo.png" alt="UWAT">
+                <div>
+                    <h1>UWAT</h1>
                     <span>Wastaafu TANAPA</span>
                 </div>
             </a>
-
-            <nav class="desktop-nav">
-                <a href="#kuhusu" class="nav-link">Kuhusu</a>
-                <a href="#uongozi" class="nav-link">Uongozi</a>
-                <a href="#huduma" class="nav-link">Huduma</a>
-                <a href="#maktaba" class="nav-link">Maktaba</a>
-                <a href="#jisajili" class="btn btn-gold" style="padding: 0.6rem 1.5rem;">Register</a>
-            </nav>
-
-            <div class="mobile-toggle" style="display:none;">
-                <!-- Hamburger placeholder -->
+            <div class="desktop-links">
+                <a href="#kuhusu">Kuhusu</a>
+                <a href="#uongozi">Viongozi</a>
+                <a href="#maktaba">Maktaba</a>
+                <a href="#jisajili" class="btn-register">Register</a>
+            </div>
+            <div class="burger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </header>
 
-    <main>
-        <!-- 
-        ========================================
-        HERO SECTION
-        ========================================
-        -->
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <span class="badge" style="background:rgba(255,255,255,0.1); color:white; border-color:white;">Umoja wa Wastaafu TANAPA</span>
-                    <h1 class="premium-font">Tunza Urithi, <br><em>Enzi Utumishi.</em></h1>
-                    <p>Tunawaunganisha wahifadhi waliostaafu wa TANAPA na watumishi wa kada mbalimbali kulinda urithi wa maliasili Tanzania kwa vizazi vijavyo.</p>
-                    <div class="hero-actions">
-                        <a href="#jisajili" class="btn btn-gold">Register Now</a>
-                        <a href="#kuhusu" class="btn btn-outline">Jua Zaidi</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="mobile-menu" id="mobileNav">
+        <a href="#kuhusu" onclick="toggleMenu()">Kuhusu</a>
+        <a href="#uongozi" onclick="toggleMenu()">Viongozi</a>
+        <a href="#maktaba" onclick="toggleMenu()">Maktaba</a>
+        <a href="#jisajili" class="btn-register" onclick="toggleMenu()">Register</a>
+    </div>
 
-        <!-- 
-        ========================================
-        METRICS BAR (No Countries)
-        ========================================
-        -->
-        <section class="container">
-            <div class="metrics-bar reveal">
-                <div class="metrics-grid">
-                    <div class="metric-item">
-                        <span class="metric-val" data-target="1500">0</span>
-                        <span class="metric-label">Wanachama Rasmi</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-val" data-target="22">0</span>
-                        <span class="metric-label">Hifadhi Zinazowakilishwa</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-val" data-target="850">0</span>
-                        <span class="metric-label">Mila za Uhifadhi</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Hero Slider -->
+    <section class="hero">
+        <div class="slider-bg">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=2000')"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=2000')"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&q=80&w=2000')"></div>
+        </div>
+        <div class="hero-text">
+            <h2>Tunza Urithi, <br><em>Enzi Utumishi.</em></h2>
+            <p>Umoja unaowaunganisha wahifadhi wetu na watumishi wa TANAPA kwa maendeleo endelevu ya maliasili zetu.</p>
+            <a href="#jisajili" class="btn-register" style="padding: 15px 40px; font-size: 1rem;">Register Now</a>
+        </div>
+    </section>
 
-        <!-- 
-        ========================================
-        ABOUT & HISTORY
-        ========================================
-        -->
-        <section id="kuhusu" class="about-section">
-            <div class="container">
-                <div class="about-grid">
-                    <div class="about-image-stack reveal">
-                        <img src="https://bventure22.github.io/Wastaafutanapa/images/Wajumbe Mkutano Mkuu Pic (1).jpeg" alt="UWAT Meeting" class="main-img">
-                    </div>
-                    <div class="about-text reveal">
-                        <span class="badge">Historia Yetu</span>
-                        <h2>Chimbuko la Umoja</h2>
-                        <p>Umoja wa Wastaafu TANAPA (UWAT) una chimbuko la kipekee lililojengwa juu ya maono ya kuendeleza undugu na weledi wa wahifadhi. Wazo hili liliibuliwa mwaka 2020 na <strong>Dr. Allan Kijazi</strong>, aliyekuwa Kamishna wa Uhifadhi (CC) wa kwanza wa TANAPA.</p>
-                        
-                        <div class="history-block">
-                            <p>Kundi la wastaafu wazalendo 17 kutoka kada mbalimbali waliweka misingi ya kisheria na kikatiba — kielelezo cha shukrani kwa utumishi uliotukuka.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 
-        ========================================
-        PROGRAMS MATRIX
-        ========================================
-        -->
-        <section id="huduma" class="matrix-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="badge">Malengo Yetu</span>
-                    <h2 class="title-main">Nguzo za UWAT</h2>
-                    <p class="title-sub">Tunajenga misingi imara ya kiuchumi na kijamii kwa kila mwanachama aliyetumikia taifa letu.</p>
-                </div>
-
-                <!-- Row 1 -->
-                <div class="matrix-row reveal">
-                    <div class="matrix-visual">
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1000" alt="Investment">
-                    </div>
-                    <div class="matrix-info">
-                        <h3>Uwekezaji Endelevu</h3>
-                        <p>Tunakusaidia kujenga msingi imara wa kiuchumi baada ya kustaafu kupitia miradi ya kimkakati.</p>
-                        <div class="feature-list">
-                            <div class="feature-point">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                Kilimo cha Biashara chenye tija.
-                            </div>
-                            <div class="feature-point">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                Uwekezaji kwenye Mali Isiyohamishika.
-                            </div>
-                            <div class="feature-point">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                Vikundi vya Uchumi wa Pamoja (VICOBA).
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Row 2 -->
-                <div class="matrix-row reveal">
-                    <div class="matrix-visual">
-                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1000" alt="Health">
-                    </div>
-                    <div class="matrix-info">
-                        <h3>Ustawi na Afya</h3>
-                        <p>Kuhakikisha stahiki, mafao, na huduma za afya kwa wastaafu zinapatikana kwa ubora na wakati.</p>
-                        <div class="feature-list">
-                            <div class="feature-point">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                Bima ya Afya (NHIF) kwa wanachama.
-                            </div>
-                            <div class="feature-point">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                Mfuko wa kusaidiana wakati wa dharura.
-                            </div>
-                            <div class="feature-point">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                Huduma za ushauri wa kisaikolojia.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 
-        ========================================
-        LEADERSHIP GRID
-        ========================================
-        -->
-        <section id="uongozi" class="leadership-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="badge" style="color:white; border-color:rgba(255,255,255,0.3);">Viongozi Wetu</span>
-                    <h2 class="title-main" style="color:white;">Bodi ya Wadhamini</h2>
-                </div>
-
-                <div class="leader-grid">
-                    <!-- Leader 1 -->
-                    <div class="leader-card reveal">
-                        <img src="https://bventure22.github.io/Wastaafutanapa/images/Mwenyekiti wa UWAT.jpeg" alt="Dr. Ezekiel Dembe" class="leader-img">
-                        <div class="leader-meta">
-                            <h4>Dr. Ezekiel Dembe</h4>
-                            <span>Mwenyekiti</span>
-                        </div>
-                    </div>
-                    <!-- Leader 2 -->
-                    <div class="leader-card reveal">
-                        <img src="https://bventure22.github.io/Wastaafutanapa/images/Mr. Inyasi Lejora-Makamu Mwenyekiti UWAT.jpeg" alt="Inyasi Lejora" class="leader-img">
-                        <div class="leader-meta">
-                            <h4>Inyasi Lejora</h4>
-                            <span>Makamu Mwenyekiti</span>
-                        </div>
-                    </div>
-                    <!-- Leader 3 -->
-                    <div class="leader-card reveal">
-                        <img src="https://bventure22.github.io/Wastaafutanapa/images/Alhaj Shaaban Njama-Katibu UWAT.jpeg" alt="Shaaban Njama" class="leader-img">
-                        <div class="leader-meta">
-                            <h4>Alhaj Shaaban Njama</h4>
-                            <span>Katibu</span>
-                        </div>
-                    </div>
-                    <!-- Leader 4 -->
-                    <div class="leader-card reveal">
-                        <img src="https://bventure22.github.io/Wastaafutanapa/images/Dr. Moris Kilewo-Katibu Msaidizi UWAT.jpeg" alt="Dr. Moris Kilewo" class="leader-img">
-                        <div class="leader-meta">
-                            <h4>Dr. Moris Kilewo</h4>
-                            <span>Katibu Msaidizi</span>
-                        </div>
-                    </div>
-                    <!-- Leader 5 -->
-                    <div class="leader-card reveal">
-                        <img src="https://bventure22.github.io/Wastaafutanapa/images/Bruno Mgonja.jpeg" alt="Bruno Mgonja" class="leader-img">
-                        <div class="leader-meta">
-                            <h4>Bruno Mgonja</h4>
-                            <span>Mweka Hazina</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 
-        ========================================
-        REGISTRATION FORM (Detailed)
-        ========================================
-        -->
-        <section id="jisajili" class="registration-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="badge">Jiunge Nasi</span>
-                    <h2 class="title-main">Fomu ya Uanachama</h2>
-                </div>
-
-                <div class="form-container reveal">
-                    <div class="form-header-box">
-                        <h3 class="premium-font" style="font-size: 1.8rem;">Maombi ya Kujiunga na UWAT</h3>
-                        <p>Jaza taarifa zako hapa chini ili kuanza mchakato wa uanachama rasmi.</p>
-                    </div>
-
-                    <form id="uwat-form" class="form-body">
-                        <div class="form-grid">
-                            <h4 class="form-subtitle">1. Taarifa Binafsi</h4>
-                            <div class="form-group">
-                                <label>Jina la Kwanza *</label>
-                                <input type="text" placeholder="Jina lako">
-                            </div>
-                            <div class="form-group">
-                                <label>Jina la Kati</label>
-                                <input type="text" placeholder="Jina la baba">
-                            </div>
-                            <div class="form-group">
-                                <label>Jina la Ukoo *</label>
-                                <input type="text" placeholder="Ukoo">
-                            </div>
-                            <div class="form-group">
-                                <label>Jinsia *</label>
-                                <select>
-                                    <option value="">Chagua</option>
-                                    <option value="ME">ME (Mwanaume)</option>
-                                    <option value="KE">KE (Mwanamke)</option>
-                                </select>
-                            </div>
-
-                            <h4 class="form-subtitle">2. Mawasiliano & Makazi</h4>
-                            <div class="form-group">
-                                <label>Namba ya Simu *</label>
-                                <input type="tel" placeholder="+255 ...">
-                            </div>
-                            <div class="form-group">
-                                <label>Barua Pepe (Email)</label>
-                                <input type="email" placeholder="mfano@gmail.com">
-                            </div>
-                            <div class="form-group">
-                                <label>Mkoa *</label>
-                                <select>
-                                    <option value="">Chagua Mkoa</option>
-                                    <option>Arusha</option><option>Dar es Salaam</option><option>Dodoma</option>
-                                    <option>Mwanza</option><option>Iringa</option><option>Mbeya</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Wilaya/Mtaa *</label>
-                                <input type="text" placeholder="Unapoishi sasa">
-                            </div>
-
-                            <h4 class="form-subtitle">3. Historia ya Utumishi</h4>
-                            <div class="form-group">
-                                <label>Hifadhi ya Mwisho *</label>
-                                <select>
-                                    <option value="">Chagua Hifadhi</option>
-                                    <option>Serengeti</option><option>Kilimanjaro</option>
-                                    <option>Ngorongoro</option><option>Ruaha</option>
-                                    <option>Mikumi</option><option>Makao Makuu</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Mwaka wa Kustaafu *</label>
-                                <input type="text" placeholder="Mfano: 2020">
-                            </div>
-
-                            <h4 class="form-subtitle">4. Masharti & Makubaliano</h4>
-                            <div class="form-group full">
-                                <div style="background: var(--cream); padding: 20px; border-radius: 10px; font-size: 0.9rem;">
-                                    <p>Ninakubali kulipa <strong>Kiingilio Tshs. 20,000</strong> na <strong>Ada ya Mwaka Tshs. 120,000</strong> kama ilivyoelekezwa kwenye Katiba ya UWAT.</p>
-                                    <label style="display:flex; align-items:center; gap:10px; margin-top:15px; cursor:pointer;">
-                                        <input type="checkbox" style="width:20px; height:20px;">
-                                        Nimekubali Masharti Yote
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="text-align: center;">
-                            <button type="button" class="btn btn-gold" onclick="alert('Asante! Maombi yako yanapokelewa.')">Tuma Maombi / Register</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- 
-    ========================================
-    FOOTER
-    ========================================
-    -->
-    <footer>
+    <!-- Leadership Section Redesign -->
+    <section class="leaders-section" id="uongozi">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-logo">
-                    <div class="logo-wrap" style="margin-bottom: 20px;">
-                        <img src="https://bventure22.github.io/Wastaafutanapa/images/uwat logo.png" alt="Logo" class="logo-img">
-                        <h1 class="premium-font" style="color:white; margin:0;">UWAT</h1>
+            <div class="unique-title">
+                <h2>Leadership</h2>
+                <div class="front-title">Viongozi Wetu</div>
+            </div>
+
+            <!-- Bodi ya Wadhamini -->
+            <h3 class="leader-category-title reveal">Bodi ya Wadhamini</h3>
+            <div class="leader-grid">
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Bruno Mgonja.jpeg" alt="Allan"></div>
+                    <div class="leader-info">
+                        <h4>Dr. Allan Kijazi</h4>
+                        <p>Mwenyekiti wa Bodi</p>
                     </div>
-                    <p>Umoja wa Wastaafu wa Shirika la Hifadhi za Taifa (TANAPA) — Jukwaa la kizalendo kwa wahifadhi wote waliotumikia taifa kwa uaminifu.</p>
                 </div>
-
-                <div class="footer-col">
-                    <h5>Viungo</h5>
-                    <ul class="footer-links">
-                        <li><a href="#kuhusu">Kuhusu Sisi</a></li>
-                        <li><a href="#uongozi">Uongozi</a></li>
-                        <li><a href="#huduma">Huduma</a></li>
-                        <li><a href="#jisajili">Jisajili</a></li>
-                    </ul>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Mwenyekiti wa UWAT.jpeg" alt="Ezekiel"></div>
+                    <div class="leader-info">
+                        <h4>Dr. Ezekiel Dembe</h4>
+                        <p>Katibu wa Bodi</p>
+                    </div>
                 </div>
-
-                <div class="footer-col">
-                    <h5>Msaada</h5>
-                    <ul class="footer-links">
-                        <li><a href="#">Bima ya Afya</a></li>
-                        <li><a href="#">Katiba ya UWAT</a></li>
-                        <li><a href="#">Ripoti za Mwaka</a></li>
-                        <li><a href="#">Maswali (FAQ)</a></li>
-                    </ul>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Dr. Adamson Kariwa-Mjumbe wa Bodi ya Wadhamini UWAT.jpeg" alt="Adamson"></div>
+                    <div class="leader-info">
+                        <h4>Dr. Adamson Kariwa</h4>
+                        <p>Mjumbe</p>
+                    </div>
                 </div>
-
-                <div class="footer-col">
-                    <h5>Mawasiliano</h5>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            <span>S.L.P 3134, <br>Arusha, Tanzania.</span>
-                        </div>
-                        <div class="contact-item">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            <span>+255 7XX XXX XXX</span>
-                        </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400" alt="Jane"></div>
+                    <div class="leader-info">
+                        <h4>Mrs. Jane Mwanri</h4>
+                        <p>Mjumbe</p>
                     </div>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2025 UWAT - Umoja wa Wastaafu TANAPA. Haki zote zimehifadhiwa.</p>
-                <span>Imetengenezwa kwa heshima ya wahifadhi wetu.</span>
+            <!-- Kamati ya Uongozi -->
+            <h3 class="leader-category-title reveal">Kamati ya Uongozi</h3>
+            <div class="leader-grid">
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Mwenyekiti wa UWAT.jpeg" alt="Ezekiel"></div>
+                    <div class="leader-info">
+                        <h4>Dr. Ezekiel Dembe</h4>
+                        <p>Mwenyekiti</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Mr. Inyasi Lejora-Makamu Mwenyekiti UWAT.jpeg" alt="Inyasi"></div>
+                    <div class="leader-info">
+                        <h4>Inyasi Lejora</h4>
+                        <p>Makamu Mwenyekiti</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Alhaj Shaaban Njama-Katibu UWAT.jpeg" alt="Shaaban"></div>
+                    <div class="leader-info">
+                        <h4>Alhadj Shaaban Njama</h4>
+                        <p>Katibu</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Bruno Mgonja.jpeg" alt="Bruno"></div>
+                    <div class="leader-info">
+                        <h4>Bruno Mgonja</h4>
+                        <p>Mhazini</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Gerald Bigurube.jpeg" alt="Gerald"></div>
+                    <div class="leader-info">
+                        <h4>Gerald Bigurube</h4>
+                        <p>Mjumbe</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Dr. Moris Kilewo-Katibu Msaidizi UWAT.jpeg" alt="Morris"></div>
+                    <div class="leader-info">
+                        <h4>Dr. Morris Kilewo</h4>
+                        <p>Mjumbe</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" alt="Domician"></div>
+                    <div class="leader-info">
+                        <h4>Domician Njau</h4>
+                        <p>Mjumbe</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Lota Melamari-Mjumbe na Mwenyekiti Kamati Manunuzi na Majadiliano.jpeg" alt="Lota"></div>
+                    <div class="leader-info">
+                        <h4>Lota Melamari</h4>
+                        <p>Mjumbe</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400" alt="Edward"></div>
+                    <div class="leader-info">
+                        <h4>Edward Kishe</h4>
+                        <p>Mjumbe</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400" alt="John"></div>
+                    <div class="leader-info">
+                        <h4>John Shemkunde</h4>
+                        <p>Mjumbe</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Nassoro Mndeme.jpeg" alt="Nassoro"></div>
+                    <div class="leader-info">
+                        <h4>Nassoro Mndeme</h4>
+                        <p>Mjumbe</p>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-img-box"><img src="https://bventure22.github.io/Wastaafutanapa/images/Hekima Munguwamajeshi-Mkaguzi Msaidizi UWAT.jpeg" alt="Christopher"></div>
+                    <div class="leader-info">
+                        <h4>Christopher Mtibili</h4>
+                        <p style="font-size: 0.6rem;">Mkaguzi wa Ndani na Mjumbe</p>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section class="register-section" id="jisajili">
+        <div class="container">
+            <div class="form-wrap reveal">
+                <div style="text-align:center; margin-bottom: 30px;">
+                    <h2 class="premium-font" style="font-size: 2rem; color: var(--forest);">Register / Jisajili Nasi</h2>
+                    <p style="color: var(--text-muted);">Jaza fomu hapa chini kujiunga na umoja</p>
+                </div>
+                <form class="form-grid">
+                    <div class="input-group"><label>Jina Kamili</label><input type="text" placeholder="Majina matatu"></div>
+                    <div class="input-group"><label>Namba ya Simu</label><input type="tel" placeholder="+255..."></div>
+                    <div class="input-group"><label>Barua Pepe</label><input type="email" placeholder="barua@pepe.com"></div>
+                    <div class="input-group">
+                        <label>Hifadhi ya Mwisho</label>
+                        <select>
+                            <option>Serengeti</option>
+                            <option>Kilimanjaro</option>
+                            <option>Ngorongoro</option>
+                            <option>Nyingine</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="grid-column: span 2;">
+                        <button type="submit" class="btn-register" style="width:100%; border:none; cursor:pointer; padding: 15px;">Kamilisha Usajili</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="https://bventure22.github.io/Wastaafutanapa/images/uwat logo.png" alt="Logo">
+        </div>
+        <p>© 2025 UWAT - Umoja wa Wastaafu TANAPA. Haki zote zimehifadhiwa.</p>
     </footer>
 
     <script>
-        /**
-         * Sticky Header Logic
-         */
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('main-header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+        // 1. Loading Animation Logic
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+            }, 1500);
         });
 
-        /**
-         * Scroll Reveal Engine
-         */
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
+        // 2. Hero Slider Logic
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
 
-        const revealObserver = new IntersectionObserver((entries) => {
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(nextSlide, 5000);
+
+        // 3. Mobile Nav Logic
+        function toggleMenu() {
+            document.getElementById('mobileNav').classList.toggle('active');
+        }
+
+        // 4. Reveal Animation Logic
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    
-                    // Trigger counter if metric is visible
-                    const counters = entry.target.querySelectorAll('.metric-val');
-                    counters.forEach(counter => animateCounter(counter));
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        /**
-         * Counter Animation Logic
-         */
-        function animateCounter(el) {
-            if (el.classList.contains('counted')) return;
-            const target = +el.getAttribute('data-target');
-            let count = 0;
-            const speed = 2000 / target;
-
-            const update = () => {
-                count += Math.ceil(target / 100);
-                if (count < target) {
-                    el.innerText = count + "+";
-                    setTimeout(update, 20);
-                } else {
-                    el.innerText = target + "+";
-                    el.classList.add('counted');
-                }
-            };
-            update();
-        }
-
-        /**
-         * Simple Smooth Scroll Polyfill
-         */
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
+        // 5. Header Scroll Logic
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.padding = '10px 0';
+                header.style.background = 'var(--forest)';
+            } else {
+                header.style.padding = '20px 0';
+            }
         });
     </script>
 </body>
