@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Impact Network | Connecting Leaders, Driving Growth</title>
+    <meta name="description" content="A premium global business and education network platform dedicated to driving international trade, educational excellence, and cross-border leadership.">
+    
+    <!-- Google Fonts: Inter for UI and Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* 
+        ========================================
+        1. CSS VARIABLES & CORE RESET
+        ========================================
+        */
+        :root {
+            --primary: #0f2537;         /* Deep Professional Navy */
+            --primary-light: #1a3a54;
+            --accent: #c8102e;          /* Crimson Red */
+            --accent-hover: #a00d25;
+            --bg-light: #f4f6f8;        /* Slate Gray Background */
+            --text-main: #2d3748;
+            --text-muted: #6c757d;
+            --white: #ffffff;
+            --black: #000000;
+            --border-color: #e2e8f0;
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            
+            --container-max: 1280px;
+            --section-padding: 100px 0;
+            --header-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-main);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ul { list-style: none; }
+        a { text-decoration: none; color: inherit; transition: var(--transition-smooth); }
+        img { max-width: 100%; display: block; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* 
+        ========================================
+        2. REUSABLE UTILITIES & LAYOUT
+        ========================================
+        */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title-wrapper {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(200, 16, 46, 0.1);
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 2rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 0.95rem;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            border-color: var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-navy {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-navy:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* 
+        ========================================
+        3. HEADER & NAVIGATION
+        ========================================
+        */
+        header {
+            height: var(--header-height);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+
+        header.scrolled {
+            height: 70px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-wrapper {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-placeholder {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-placeholder span {
+            color: var(--accent);
+        }
+
+        /* Desktop Nav */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            height: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link svg {
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover .nav-link svg {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            width: 250px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            border-radius: 0 0 8px 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition-smooth);
+            border-top: 3px solid var(--accent);
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-link {
+            display: block;
+            padding: 0.75rem 0;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown-link:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-link:hover {
+            color: var(--accent);
+            padding-left: 10px;
+        }
+
+        /* Mobile Burger */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        .mobile-toggle span {
+            width: 30px;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: var(--white);
+            z-index: 1050;
+            padding: 100px 2rem;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            transition: 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        /* 
+        ========================================
+        4. HERO SECTION
+        ========================================
+        */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070') no-repeat center center/cover;
+            color: var(--white);
+            padding-top: var(--header-height);
+            margin-top: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 37, 55, 0.95) 0%, rgba(15, 37, 55, 0.4) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* 
+        ========================================
+        5. METRICS GRID SECTION
+        ========================================
+        */
+        .metrics-section {
+            background-color: var(--white);
+            padding: var(--section-padding);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 40px;
+            border-radius: 12px;
+            background: var(--bg-light);
+            transition: var(--transition-smooth);
+            border-bottom: 4px solid transparent;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-10px);
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            border-bottom-color: var(--accent);
+        }
+
+        .metric-icon {
+            margin-bottom: 20px;
+            color: var(--accent);
+            display: flex;
+            justify-content: center;
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 
+        ========================================
+        6. PROGRAMS MATRIX (ALTERNATING)
+        ========================================
+        */
+        .programs-section {
+            padding: var(--section-padding);
+            background-color: var(--white);
+        }
+
+        .program-row {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            margin-bottom: 120px;
+        }
+
+        .program-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .program-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .program-image {
+            flex: 1;
+            position: relative;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .program-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .program-row:hover .program-image img {
+            transform: scale(1.05);
+        }
+
+        .program-content {
+            flex: 1;
+        }
+
+        .program-content h3 {
+            font-size: 2.25rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .program-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .program-features {
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .feature-item svg {
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* 
+        ========================================
+        7. INSIGHTS HUB (CARDS)
+        ========================================
+        */
+        .insights-section {
+            padding: var(--section-padding);
+            background-color: var(--bg-light);
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .insight-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .insight-thumb {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .insight-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .insight-category {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+
+        .insight-body {
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        .insight-body h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            line-height: 1.4;
+        }
+
+        .insight-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .insight-footer {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .author-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #ddd;
+        }
+
+        /* 
+        ========================================
+        8. CALL TO ACTION SECTION
+        ========================================
+        */
+        .cta-section {
+            padding: 120px 0;
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            opacity: 0.1;
+            border-radius: 50%;
+            top: -200px;
+            right: -100px;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+        }
+
+        /* 
+        ========================================
+        9. FOOTER
+        ========================================
+        */
+        footer {
+            background-color: #08131d;
+            color: var(--white);
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h5 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-about p {
+            color: #a0aec0;
+            margin-bottom: 20px;
+            padding-right: 40px;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: #a0aec0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition-smooth);
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #718096;
+            font-size: 0.85rem;
+        }
+
+        /* 
+        ========================================
+        10. ANIMATION STATES (SCROLL REVEAL)
+        ========================================
+        */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .program-row, .program-row:nth-child(even) { flex-direction: column; gap: 40px; }
+            .section-title { font-size: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .desktop-nav { display: none; }
+            .mobile-toggle { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .metric-grid { grid-template-columns: 1fr 1fr; }
+            .section-padding { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 
+    ========================================
+    NAVIGATION COMPONENT
+    ========================================
+    -->
+    <header id="main-header">
+        <div class="container nav-wrapper">
+            <a href="#" class="logo-placeholder">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="6" fill="#0f2537"/>
+                    <path d="M16 8L22 24H10L16 8Z" fill="#c8102e"/>
+                </svg>
+                GINET<span>WORK</span>
+            </a>
+
+            <nav class="desktop-nav">
+                <div class="nav-item">
+                    <a class="nav-link" href="#about">About <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-link">Our Mission</a>
+                        <a href="#" class="dropdown-link">Leadership Team</a>
+                        <a href="#" class="dropdown-link">Global Partners</a>
+                        <a href="#" class="dropdown-link">Annual Reports</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="#programs">Programs <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-link">Global Fellowship</a>
+                        <a href="#" class="dropdown-link">Trade Advisory</a>
+                        <a href="#" class="dropdown-link">Education Initiative</a>
+                        <a href="#" class="dropdown-link">Startup Incubator</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="#insights">Insights</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="#events">Events</a>
+                </div>
+                <a href="#join" class="btn btn-primary">Get Involved</a>
+            </nav>
+
+            <div class="mobile-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#about" class="dropdown-link">About Us</a>
+        <a href="#programs" class="dropdown-link">Programs</a>
+        <a href="#insights" class="dropdown-link">Insights</a>
+        <a href="#events" class="dropdown-link">Events</a>
+        <a href="#join" class="btn btn-primary">Get Involved</a>
+    </div>
+
+    <main>
+        <!-- 
+        ========================================
+        HERO SECTION
+        ========================================
+        -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="section-badge" style="background: rgba(255,255,255,0.2); color: white;">Global Business Excellence</span>
+                    <h1>Connecting Global Leaders, Driving Impact</h1>
+                    <p>We empower organizations and individuals to navigate the complexities of international markets through education, networking, and strategic advocacy.</p>
+                    <div class="hero-btns">
+                        <a href="#programs" class="btn btn-primary">Explore Programs</a>
+                        <a href="#about" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        METRICS SECTION
+        ========================================
+        -->
+        <section class="metrics-section">
+            <div class="container">
+                <div class="metrics-grid">
+                    <div class="metric-card reveal">
+                        <div class="metric-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                        </div>
+                        <span class="metric-number" data-target="150">0</span>
+                        <span class="metric-label">Countries Active</span>
+                    </div>
+                    <div class="metric-card reveal">
+                        <div class="metric-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <span class="metric-number" data-target="4200">0</span>
+                        <span class="metric-label">Network Members</span>
+                    </div>
+                    <div class="metric-card reveal">
+                        <div class="metric-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <span class="metric-number" data-target="850">0</span>
+                        <span class="metric-label">Projects Completed</span>
+                    </div>
+                    <div class="metric-card reveal">
+                        <div class="metric-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <span class="metric-number" data-target="12">0</span>
+                        <span class="metric-label">Billion Generated</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        PROGRAMS MATRIX
+        ========================================
+        -->
+        <section id="programs" class="programs-section">
+            <div class="container">
+                <div class="section-title-wrapper reveal">
+                    <span class="section-badge">Our Initiatives</span>
+                    <h2 class="section-title">Empowering the Next Generation of Global Innovators</h2>
+                    <p class="section-subtitle">From high-level diplomatic engagement to grassroots educational support, our programs are designed to create sustainable economic value.</p>
+                </div>
+
+                <!-- Row 1 -->
+                <div class="program-row reveal">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1000" alt="Global Fellowship">
+                    </div>
+                    <div class="program-content">
+                        <span class="section-badge">Professional Growth</span>
+                        <h3>The Global Fellowship Program</h3>
+                        <p>An elite 12-month residency designed for mid-career professionals looking to pivot into international trade and diplomatic relations. Participants gain access to exclusive mentorship from Fortune 500 CEOs and senior policy makers.</p>
+                        <div class="program-features">
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                1-on-1 Executive Mentorship
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                Cross-border Project Placement
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                Certified Leadership Credentials
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-navy">Apply for Fellowship</a>
+                    </div>
+                </div>
+
+                <!-- Row 2 (Reversed) -->
+                <div class="program-row reveal">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=1000" alt="Trade Advisory">
+                    </div>
+                    <div class="program-content">
+                        <span class="section-badge">Corporate Strategy</span>
+                        <h3>International Trade Advisory</h3>
+                        <p>We provide small to medium enterprises with the technical expertise needed to expand into emerging markets. Our team handles regulatory compliance, logistical frameworks, and cultural market analysis.</p>
+                        <div class="program-features">
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                Market Entry Strategy
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                Regulatory Risk Assessment
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                Supply Chain Optimization
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-navy">Consult with Experts</a>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="program-row reveal">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1000" alt="Education Outreach">
+                    </div>
+                    <div class="program-content">
+                        <span class="section-badge">Education</span>
+                        <h3>Global Scholars Initiative</h3>
+                        <p>Bridging the gap between academic theory and real-world application. We partner with leading universities to provide students with internships at international NGOs and global corporations.</p>
+                        <div class="program-features">
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                Fully Funded Internships
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                University Credit Exchange
+                            </div>
+                            <div class="feature-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                Networking Summits
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-navy">Join the Scholars</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        INSIGHTS HUB (CARD GRID)
+        ========================================
+        -->
+        <section id="insights" class="insights-section">
+            <div class="container">
+                <div class="section-title-wrapper reveal">
+                    <span class="section-badge">Resources & News</span>
+                    <h2 class="section-title">Knowledge for a Connected World</h2>
+                    <p class="section-subtitle">Stay ahead of global trends with our research papers, expert editorials, and community success stories.</p>
+                </div>
+
+                <div class="insights-grid">
+                    <!-- Card 1 -->
+                    <article class="insight-card reveal">
+                        <div class="insight-thumb">
+                            <span class="insight-category">Analysis</span>
+                            <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=600" alt="Trade Trends">
+                        </div>
+                        <div class="insight-body">
+                            <h4>2024 Global Trade Outlook: Navigating Uncertainty</h4>
+                            <p>A deep dive into how shifting geopolitical alliances are reshaping supply chains across the Indo-Pacific region.</p>
+                            <a href="#" style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">Read Full Article →</a>
+                        </div>
+                        <div class="insight-footer">
+                            <div class="author-box">
+                                <div class="author-avatar" style="background: url('https://i.pravatar.cc/100?u=1') center/cover;"></div>
+                                <span>Dr. Helena Vance</span>
+                            </div>
+                            <span>May 12, 2024</span>
+                        </div>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="insight-card reveal">
+                        <div class="insight-thumb">
+                            <span class="insight-category">Success Story</span>
+                            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=600" alt="Case Study">
+                        </div>
+                        <div class="insight-body">
+                            <h4>Scaling Sustainably: The Tech-Agri Partnership</h4>
+                            <p>How one startup used GINetwork resources to bridge the digital divide in sub-Saharan agricultural markets.</p>
+                            <a href="#" style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">Read Full Article →</a>
+                        </div>
+                        <div class="insight-footer">
+                            <div class="author-box">
+                                <div class="author-avatar" style="background: url('https://i.pravatar.cc/100?u=2') center/cover;"></div>
+                                <span>Marcus Thorne</span>
+                            </div>
+                            <span>Apr 28, 2024</span>
+                        </div>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="insight-card reveal">
+                        <div class="insight-thumb">
+                            <span class="insight-category">Report</span>
+                            <img src="https://images.unsplash.com/photo-1551288049-bbbda536ad09?auto=format&fit=crop&q=80&w=600" alt="Economic Data">
+                        </div>
+                        <div class="insight-body">
+                            <h4>The Digital Currency Shift: A Policy Guide</h4>
+                            <p>Our annual whitepaper on the adoption of CBDCs and their impact on international liquidity and cross-border payments.</p>
+                            <a href="#" style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">Read Full Article →</a>
+                        </div>
+                        <div class="insight-footer">
+                            <div class="author-box">
+                                <div class="author-avatar" style="background: url('https://i.pravatar.cc/100?u=3') center/cover;"></div>
+                                <span>Sarah Jenkins</span>
+                            </div>
+                            <span>Apr 15, 2024</span>
+                        </div>
+                    </article>
+
+                    <!-- Card 4 -->
+                    <article class="insight-card reveal">
+                        <div class="insight-thumb">
+                            <span class="insight-category">Spotlight</span>
+                            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=600" alt="Leadership">
+                        </div>
+                        <div class="insight-body">
+                            <h4>Leadership in Times of Crisis</h4>
+                            <p>Lessons from the world's most resilient CEOs on maintaining team morale during economic downturns.</p>
+                            <a href="#" style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">Read Full Article →</a>
+                        </div>
+                        <div class="insight-footer">
+                            <div class="author-box">
+                                <div class="author-avatar" style="background: url('https://i.pravatar.cc/100?u=4') center/cover;"></div>
+                                <span>James Wu</span>
+                            </div>
+                            <span>Mar 20, 2024</span>
+                        </div>
+                    </article>
+
+                    <!-- Card 5 -->
+                    <article class="insight-card reveal">
+                        <div class="insight-thumb">
+                            <span class="insight-category">Education</span>
+                            <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=600" alt="Classroom">
+                        </div>
+                        <div class="insight-body">
+                            <h4>AI's Role in Future Higher Education</h4>
+                            <p>Exploring how generative AI is transforming the way international relations students conduct research.</p>
+                            <a href="#" style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">Read Full Article →</a>
+                        </div>
+                        <div class="insight-footer">
+                            <div class="author-box">
+                                <div class="author-avatar" style="background: url('https://i.pravatar.cc/100?u=5') center/cover;"></div>
+                                <span>Elisa G.</span>
+                            </div>
+                            <span>Mar 05, 2024</span>
+                        </div>
+                    </article>
+
+                    <!-- Card 6 -->
+                    <article class="insight-card reveal">
+                        <div class="insight-thumb">
+                            <span class="insight-category">Events</span>
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=600" alt="Conference">
+                        </div>
+                        <div class="insight-body">
+                            <h4>Recap: The 2024 Global Summit</h4>
+                            <p>Relive the highlights from our flagship event in Singapore, featuring 50 keynote speakers and 1,000 delegates.</p>
+                            <a href="#" style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">Read Full Article →</a>
+                        </div>
+                        <div class="insight-footer">
+                            <div class="author-box">
+                                <div class="author-avatar" style="background: url('https://i.pravatar.cc/100?u=6') center/cover;"></div>
+                                <span>Network Team</span>
+                            </div>
+                            <span>Feb 18, 2024</span>
+                        </div>
+                    </article>
+                </div>
+                
+                <div style="text-align: center; margin-top: 60px;">
+                    <a href="#" class="btn btn-navy">Browse All Insights</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        CALL TO ACTION
+        ========================================
+        -->
+        <section id="join" class="cta-section">
+            <div class="container reveal">
+                <div class="cta-content">
+                    <h2>Ready to Scale Globally?</h2>
+                    <p>Join the thousands of leaders who are already leveraging our network to create impact across the globe.</p>
+                    <div class="hero-btns" style="justify-content: center;">
+                        <a href="#" class="btn btn-primary">Become a Member</a>
+                        <a href="#" class="btn btn-outline">Corporate Partnerships</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 
+    ========================================
+    FOOTER SECTION
+    ========================================
+    -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1: Bio -->
+                <div class="footer-col footer-about">
+                    <a href="#" class="logo-placeholder" style="color: white; margin-bottom: 25px;">
+                        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="6" fill="#c8102e"/>
+                            <path d="M16 8L22 24H10L16 8Z" fill="#ffffff"/>
+                        </svg>
+                        GINET<span>WORK</span>
+                    </a>
+                    <p>GINetwork is the world's premier platform for professional trade education and global business networking. We bridge the gap between emerging markets and established industry leaders.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <a href="#" class="social-icon"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+                        <a href="#" class="social-icon"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Site Silo -->
+                <div class="footer-col footer-links">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#">About the Network</a></li>
+                        <li><a href="#">Membership Tiers</a></li>
+                        <li><a href="#">Regional Chapters</a></li>
+                        <li><a href="#">Career Opportunities</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Site Silo -->
+                <div class="footer-col footer-links">
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="#">Research Hub</a></li>
+                        <li><a href="#">Trade Statistics</a></li>
+                        <li><a href="#">Policy Briefs</a></li>
+                        <li><a href="#">Learning Management</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Contact -->
+                <div class="footer-col">
+                    <h5>Contact Us</h5>
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>1234 Global Plaza, Suite 500<br>Washington, DC 20005</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span>+1 (202) 555-0198</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <span>contact@ginetwork.org</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Global Impact Network. All rights reserved.</p>
+                <p>Designed for excellence in international trade and education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 
+    ========================================
+    NATIVE JAVASCRIPT LOGIC
+    ========================================
+    -->
+    <script>
+        /**
+         * 1. STICKY HEADER LOGIC
+         * Adds a class to the header when user scrolls past 50px.
+         */
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        /**
+         * 2. MOBILE MENU TOGGLE
+         * Handles the opening and closing of the mobile navigation drawer.
+         */
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            
+            // Hamburger Animation
+            const spans = menuToggle.querySelectorAll('span');
+            if (mobileMenu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        /**
+         * 3. SCROLL REVEAL ENGINE
+         * Uses Intersection Observer to detect when elements enter the viewport.
+         */
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // If it's a metric card, trigger counter
+                    if (entry.target.querySelector('.metric-number')) {
+                        startCounter(entry.target.querySelector('.metric-number'));
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        /**
+         * 4. METRIC COUNTER ANIMATION
+         * Smoothly increments numbers from 0 to their target value.
+         */
+        function startCounter(el) {
+            const target = parseInt(el.getAttribute('data-target'));
+            let current = 0;
+            const increment = target / 50; // Total steps for the animation
+            const speed = 30; // Milliseconds per step
+
+            const updateCount = () => {
+                if (current < target) {
+                    current += increment;
+                    el.innerText = Math.ceil(current).toLocaleString();
+                    setTimeout(updateCount, speed);
+                } else {
+                    el.innerText = target.toLocaleString() + (target === 12 ? "B" : "+");
+                }
+            };
+            updateCount();
+        }
+
+        /**
+         * 5. KEYBOARD ACCESSIBILITY FOR DROPDOWNS
+         * Ensures that the dropdown menus work for keyboard-only users.
+         */
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            const link = item.querySelector('.nav-link');
+            const dropdown = item.querySelector('.dropdown');
+
+            if (dropdown) {
+                link.addEventListener('focus', () => {
+                    dropdown.style.opacity = '1';
+                    dropdown.style.visibility = 'visible';
+                    dropdown.style.transform = 'translateY(0)';
+                });
+
+                // Close dropdown when focus leaves the last link
+                const dropdownLinks = dropdown.querySelectorAll('a');
+                const lastLink = dropdownLinks[dropdownLinks.length - 1];
+                
+                lastLink.addEventListener('blur', () => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                    dropdown.style.transform = 'translateY(10px)';
+                });
+            }
+        });
+
+        /**
+         * 6. SMOOTH INTERNAL LINK SCROLLING
+         * Intercepts clicks on anchor tags for a smoother user experience.
+         */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetID = this.getAttribute('href');
+                if (targetID === '#') return;
+
+                const targetElement = document.querySelector(targetID);
+                if (targetElement) {
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('active');
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize any specific components on load
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log("GINetwork Platform Initialized Successfully.");
+        });
+    </script>
+</body>
+</html>
