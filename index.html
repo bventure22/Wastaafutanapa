@@ -99,7 +99,7 @@
       opacity: 0.12; z-index: 0;
     }
     .hero-content { position: relative; z-index: 1; max-width: 680px; }
-    .hero-logo { width: 90px; height: 90px; object-fit: contain; border-radius: 12px; margin-bottom: 1.5rem;
+    .hero-logo { width: 120px; height: 120px; object-fit: contain; border-radius: 12px; margin-bottom: 1.5rem;
       box-shadow: 0 8px 32px rgba(0,0,0,0.4); border: 2px solid rgba(201,146,42,0.4); }
     .hero-eyebrow { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.2em;
       text-transform: uppercase; margin-bottom: 1rem; font-weight: 500; }
@@ -490,7 +490,7 @@
       <div class="feature-card">
         <div class="feature-icon">📋</div>
         <h3>Ushauri wa Kitaalamu</h3>
-        <p>Kutoa mwongozo wa uhifadhi kwa serikali, asasi na vizazi vipya vya askari hifadhi.</p>
+        <p>Kutoa ushauri wa kitaalamu popote utakapohitajika, juu ya uhifadhi wa wanyamapori na mazingira yake.</p>
       </div>
     </div>
   </div>
@@ -632,11 +632,11 @@
   </div>
 </section>
 
-<!-- HADITHI ZA UWANJANI -->
+<!-- Simulizi zetu za Mbugani -->
 <section id="maktaba-hadithi">
   <div class="section-inner">
     <div class="section-label">Kumbukizi za Utumishi</div>
-    <h2 class="section-title">Hadithi za Uwanjani</h2>
+    <h2 class="section-title">Simulizi zetu za Mbugani</h2>
     <div class="divider"></div>
     <div class="stories-grid">
       <div class="story-card">
@@ -653,14 +653,6 @@
           <span class="story-tag">Kilimanjaro</span>
           <h3>Askari wa Mlima Mrefu Afrika</h3>
           <p>Hadithi za kupanda na kushuka mlima Kilimanjaro wakati wa doria.</p>
-        </div>
-      </div>
-      <div class="story-card">
-        <img src="https://images.unsplash.com/photo-1504173010664-32509107de98?auto=format&fit=crop&q=80&w=700" alt="Ngorongoro" />
-        <div class="story-body">
-          <span class="story-tag">Ngorongoro</span>
-          <h3>Simba wa Crater</h3>
-          <p>Nguvu ya simba na uzoefu wa kuwaangalia katika bonde la Ngorongoro.</p>
         </div>
       </div>
       <div class="story-card">
@@ -825,8 +817,10 @@
         <div class="form-section-title">2. Taarifa za Mawasiliano</div>
         <div class="form-row">
           <div class="form-group"><label>Namba ya Simu *</label><input type="tel" placeholder="+255 XXX XXX XXX" /></div>
+          <div class="form-group"><label>Namba ya Simu *</label><input type="tel" placeholder="+255 XXX XXX XXX" /></div>
           <div class="form-group"><label>Makazi</label><input type="text" placeholder="Mji/Wilaya ya makazi" /></div>
           <div class="form-group"><label>Barua Pepe</label><input type="email" placeholder="barua@pepe.co.tz" /></div>
+          <div class="form-group"><label>Namba ya Nida</label><input type="Nida" placeholder="Namba ya Nida" /></div>
         </div>
       </div>
 
@@ -862,6 +856,8 @@
           <div class="form-group"><label>Jina la Mwenza</label><input type="text" placeholder="Jina kamili la mwenza" /></div>
           <div class="form-group"><label>Anapoishi</label><input type="text" placeholder="Makazi ya mwenza" /></div>
           <div class="form-group"><label>Namba ya Simu</label><input type="tel" placeholder="+255 XXX XXX XXX" /></div>
+          <div class="form-group"><label>Namba ya Simu</label><input type="tel" placeholder="+255 XXX XXX XXX" /></div>
+          <div class="form-group"><label>Namba ya Nida</label><input type="Nida" placeholder="Namba ya Nida" /></div>
         </div>
       </div>
 
@@ -882,14 +878,20 @@
           <div class="form-group"><label>Hifadhi au Sehemu ya Mwisho *</label>
             <select>
               <option value="">— Chagua Hifadhi —</option>
-              <option>Serengeti</option><option>Kilimanjaro</option><option>Ngorongoro</option>
-              <option>Mikumi</option><option>Ruaha</option><option>Tarangire</option>
-              <option>Gombe</option><option>Katavi</option><option>Mahale</option>
-              <option>Arusha</option><option>Makao Makuu</option>
+              <option>Serengeti</option><option>Kilimanjaro</option>
+              <option>Tarangire</option><option>Lake Manyara</option><option>Arusha</option>
+              <option>Mkomazi</option><option>Nyerere</option><option>Ruaha</option>
+              <option>Mikumi</option><option>Milima ya Udzungwa</option><option>Kitulo</option>
+              <option>Gombe Stream</option><option>Milima ya Mahale</option><option>Katavi</option>
+              <option>Rubondo Island</option><option>Burigi-Chato</option><option>Ibanda-Kyerwa</option>
+              <option>Rumanyika-Karagwe</option><option>Mto Ugalla</option><option>Kigosi</option>
+              <option>Saadani</option>
             </select>
           </div>
           <div class="form-group"><label>Tarehe / Mwaka wa Kustaafu *</label><input type="text" placeholder="Mfano: Januari 2020" /></div>
         </div>
+          <div class="form-group"><label>Sababu za kustaafu *</label><input type="text" placeholder="Mfano: Umri, hiyari, Ugonjwa, n.k" /></div>
+          <div class="form-group"><label>o	Kwa waliostaafu ndani ya uteuzi au uhamisho nje ya Tanapa *</label><input type="text" placeholder="Nafasi/cheo cha mwisho, na mahali ulipomalizia utumishi" /></div>
       </div>
 
       <!-- 7 & 8. Masharti na Ahadi -->
@@ -901,6 +903,8 @@
             <li>Kuwa tayari kufuata Katiba na Kanuni za UWAT</li>
             <li>Kulipa Kiingilio: <strong>Tshs. 20,000</strong></li>
             <li>Kulipa Ada ya Mwaka: <strong>Tshs. 120,000</strong></li>
+            <p>namba ya akaunti ya Benki: <strong>NMB Account No: 40810150689</strong></p>
+            <p>Jina: <strong>UMOJA WA WASTAAFU TANAPA</strong></p>
           </ul>
         </div>
         <div class="checkbox-row">
