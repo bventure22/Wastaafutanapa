@@ -416,6 +416,22 @@
     }
     .scroll-top.visible { display: flex; }
     .scroll-top:hover { transform: translateY(-3px); }
+  
+  /* Styling Google Translate widget inside Nav */
+#google_translate_element {
+  display: inline-block;
+  margin-right: 10px;
+}
+#google_translate_element select {
+  background-color: var(--forest-mid);
+  color: var(--white);
+  border: 1px solid var(--gold);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  outline: none;
+}
+    
   </style>
 </head>
 <body>
@@ -430,6 +446,9 @@
     </div>
   </a>
   <div class="nav-links">
+    <!-- ADD THIS LINE HERE -->
+    <div id="google_translate_element"></div>
+
     <a href="#kuhusu">Kuhusu</a>
     <a href="#uongozi">Uongozi</a>
     <a href="#uwekezaji">Uwekezaji</a>
@@ -952,6 +971,28 @@
         <a href="#">Ushauri</a>
         <a href="#">Mafao</a>
       </div>
+
+      <!-- NEW CONTACT & LOCATION COLUMN -->
+      <div class="footer-col">
+        <h5>Mawasiliano & Mahali</h5>
+        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 0.5rem;">
+          <strong>Makao Makuu:</strong><br />
+          Arusha, Tanzania
+        </p>
+        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 0.5rem;">
+          <strong>Anuani ya Posta:</strong><br />
+          S. L. P. 3134, Arusha, Tanzania
+        </p>
+        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 0.5rem;">
+          <strong>Baruapepe</strong><br />
+          info@uwat.co.tz
+        </p>
+        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 0.5rem;">
+          <strong>Namba ya simu:</strong><br />
+          +255 763 816 583
+        </p>
+      </div>
+      
     </div>
     <div class="footer-bottom">
       <p>© 2026 UWAT — Umoja wa Wastaafu TANAPA. Haki zote zimehifadhiwa.</p>
@@ -1009,5 +1050,18 @@
     });
   });
 </script>
+
+<!-- GOOGLE TRANSLATE SCRIPT -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'sw', // Default language set to Swahili
+        includedLanguages: 'sw,en,fr,de,ar,es', // Languages to show (add/remove as needed)
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
 </body>
 </html>
